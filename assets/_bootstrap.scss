@@ -1,0 +1,42 @@
+
+
+.pb-12, .py-12{
+    padding-bottom: 6rem!important;
+} 
+.pt-12, .py-12{
+    padding-top: 6rem!important;
+}
+ 
+
+//padding-right
+.pr-12, .px-12{
+    padding-right: 6rem!important;
+}
+
+.align-items-start {
+    align-items: flex-start!important;
+}
+.form-control{
+    border-radius: 0;
+    background-clip: border-box;
+    transition: all .1s ease-in-out;
+    transition-property: border;
+    outline: none;
+}
+.form-control-gray-700{
+    background-color: #303030;
+    border-color: #303030;
+    color: #fff;
+}
+.list-inline-item{
+    display: inline-block;
+}
+.list-inline-item:not(:last-child) {
+    margin-right: .5rem;
+}
+.heading-xxxs{
+    font-size: .6875rem;
+    font-weight: 500;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+}

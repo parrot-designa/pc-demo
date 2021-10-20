@@ -1,0 +1,14 @@
+@media (min-width: 576px){
+    
+}
+
+
+@media (min-width: 1200px){
+    .navbar-expand-xl .navbar-nav .nav-link{
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+    .mr-xl-8, .mx-xl-8 {
+        margin-right: 2.5rem!important;
+    }    
+}

@@ -1,0 +1,39 @@
+.navbar{
+    padding: 1.5rem 1rem;
+}
+
+.navbar-brand{
+    font-size: 1.75rem;
+    font-weight: 600;
+}
+
+.nav-link{
+    color: #111;
+}
+
+.navbar-light .navbar-nav .nav-link{
+    font-weight: 600;
+    color: #111;
+
+    &:hover{
+        color: #ff6f61;
+    }
+    &:focus{
+        color: #ff6f61;
+    }
+}
+//有的去除箭头
+.no-arrow{
+    .dropdown-toggle::after{
+        display: none;
+    }
+}
+
+@media (min-width: 1200px){
+    .navbar-nav .dropdown>.dropdown-menu{
+        display: block!important;
+        visibility: hidden;
+        transform-origin: top center;
+        opacity: 0;
+    }
+}

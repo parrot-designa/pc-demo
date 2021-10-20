@@ -1,0 +1,18 @@
+{
+    "userLogin": {
+        "loginText":"login",
+        "navbar":{
+            "home":"Home",
+            "all":"All",
+            "clothing":"Clothing",
+            "tasted":"Aasted",
+            "accessories":"Accessories",
+            "collection":"Collection",
+            "loginText":"Login"
+        },
+        "language":{
+            "chinese":"Chinese",
+            "english":"English"
+        }
+    }
+}

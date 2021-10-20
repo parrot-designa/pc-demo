@@ -1,0 +1,18 @@
+{
+    "userLogin": {
+        "loginText":"登陆",
+        "navbar":{
+            "home":"主页",
+            "all":"全部",
+            "clothing":"服饰鞋帽",
+            "tasted":"饰品",
+            "accessories":"配饰",
+            "collection":"收藏品",
+            "loginText":"登录"
+        },
+        "language":{
+            "chinese":"中文",
+            "english":"英文"
+        }
+    }
+}
