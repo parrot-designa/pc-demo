@@ -28,7 +28,7 @@
             <div class="iconfont icon-sousuo"></div>
           </b-nav-item>
           <b-nav-item href="#">
-            <div class="iconfont icon-yonghu"></div>
+            <div class="iconfont icon-yonghu" @click="$router.push({path:'/user'})"></div>
           </b-nav-item>
           <b-nav-item href="#">
             <div class="iconfont icon-aixin"></div>

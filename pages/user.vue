@@ -108,6 +108,18 @@ export default {
           if(this.path==='/user/message' && name==='我的留言'){
               return true;
           }
+          if(this.path==='/user/coupons' && name==='优惠券'){
+              return true;
+          }
+          if(this.path==='/user/account' && name==='账户设置'){
+              return true;
+          }
+          if(this.path==='/user/address' && name==='收货地址'){
+              return true;
+          }
+          if(this.path==='/user/balance' && name==='余额管理'){
+              return true;
+          }
           return false;
       },
       handleNavigation({path}){

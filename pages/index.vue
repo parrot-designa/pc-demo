@@ -33,7 +33,7 @@
           <b-col cols="12" md="10" lg="8" xl="6">
             <h2 class="mb-4 text-center">Chrome Hearts 2021 ㊣宗克罗心</h2>
 
-            <CustomTab :tabs="tabList" v-model="tabIndex" />
+            <CustomTab :tabs="tabList" v-model="tabIndex" classname="justify-content-center mb-10" />
           </b-col>
         </b-row>
 

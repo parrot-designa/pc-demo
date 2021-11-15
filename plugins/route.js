@@ -5,6 +5,7 @@ export default ({app}) => {
             app.store.commit('global/SET_GLOBAL_HEADER_BGCOLOR','#fff')
         } 
         if(to.path==='/user'){
+            //用户中心面包屑
             app.store.commit('global/SET_GLOBAL_BREAD',{items:['首页','用户中心']})
         } 
         if(to.path==='/pic'){

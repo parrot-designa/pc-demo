@@ -1,5 +1,5 @@
 <template>
-    <div class="nav justify-content-center mb-10">
+    <div class="nav" :class="classname">
         <a 
             class="nav-link" 
             v-for="(item,index) in tabs" 
@@ -24,6 +24,10 @@ export default {
         pageType:{
             type:String,
             default:'index'
+        },
+        classname:{
+            type:String,
+            default:''
         }
     },
     methods:{

@@ -8,6 +8,7 @@
         <EvaluationItem />
         <EvaluationItem />
         <EvaluationItem />
+        <CustomPagination />
     </div>
 </template>
 
