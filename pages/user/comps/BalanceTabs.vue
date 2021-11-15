@@ -6,10 +6,11 @@
         </div>
 
         <div class="card-body">
-            <slot />
+            <slot name="first" v-if="tabIndex===0" />
+            <slot name="second" v-if="tabIndex===1" />
+            <slot name="third" v-if="tabIndex===2" />
         </div>
-
-        <custom-pagination />
+ 
 
     </div>
 </template>
