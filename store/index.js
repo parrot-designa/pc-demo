@@ -1,3 +1,6 @@
+import global from './global';
+import home from './home';
+
 export const state = () => ({
     locales: ['en-US', 'zh-CN'],
     locale: 'zh-CN'
@@ -11,3 +14,14 @@ export const mutations = {
         }
     }
 } 
+
+export const actions={
+    async nuxtServerInit({commit,dispatch},{req,app}){ 
+        
+    }
+}
+
+export const modules={
+    global,
+    home
+}

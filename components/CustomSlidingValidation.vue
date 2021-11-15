@@ -12,8 +12,7 @@ import SlidingValidation from './SlidingValidation/src/SlidingValidation.vue';
 export default {
   components: { SlidingValidation },
     methods:{
-        handleSlidingValidation(e){
-            console.log("e handleSlidingValidation",e)
+        handleSlidingValidation(e){ 
             this.$emit('onClose',e)
         }
     }

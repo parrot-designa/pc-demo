@@ -1,0 +1,31 @@
+.badge {
+    display: inline-block;
+    padding: .5em 1em;
+    font-size: .6875em;
+    font-weight: 500;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.badge-primary {
+    color: #fff;
+    background-color: $primary-color;
+}
+
+.badge-dark {
+    color: #fff;
+    background-color: #1f1f1f;
+}
+
+.badge {
+    letter-spacing: .02em;
+    cursor: pointer;
+}
+.card-badge{
+    position: absolute;
+    top: 1.25rem;
+    z-index: 1;
+}

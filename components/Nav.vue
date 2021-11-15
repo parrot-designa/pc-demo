@@ -1,22 +1,16 @@
 <template>
-  <b-navbar toggleable="xl" :style="{ 'background-color': bgColor }">
+  <b-navbar toggleable="xl">
     <b-container>
       <b-navbar-brand tag="a" class="d-xl-none">CHHES</b-navbar-brand>
       <b-navbar-toggle target="navbarClassicCollapse"></b-navbar-toggle>
       <b-collapse is-nav id="navbarClassicCollapse">
         <b-navbar-nav>
-          <b-nav-item href="#">{{ $t("userLogin.navbar.home") }}</b-nav-item> 
-          <b-nav-item href="#">{{ $t("userLogin.navbar.all") }}</b-nav-item> 
-          <b-nav-item href="#">{{
-            $t("userLogin.navbar.clothing")
-          }}</b-nav-item>
-          <b-nav-item href="#">{{ $t("userLogin.navbar.tasted") }}</b-nav-item>
-          <b-nav-item href="#">{{
-            $t("userLogin.navbar.accessories")
-          }}</b-nav-item>
-          <b-nav-item href="#">{{
-            $t("userLogin.navbar.collection")
-          }}</b-nav-item>
+          <b-nav-item v-for="(item, index) in globalNavigation" :key="index">
+            <CustomPopover :items="item.children" v-if="childLength(item.children)">
+              <span>{{ getHeader(item) }}</span>
+            </CustomPopover>
+            <span v-else>{{ getHeader(item) }}</span>
+          </b-nav-item>
         </b-navbar-nav>
         <a
           class="navbar-brand mx-auto d-none d-xl-block pr-12"
@@ -57,21 +51,31 @@ export default {
   data() {
     return {};
   },
-  props: ["bgColor"],
+  props: ["bgColor", "globalNavigation"],
   components: {
     MenuItemOne,
   },
+  watch: {  
+  },
   methods: {
+    childLength:function(children){
+      return (children||[]).length;
+    },
     transformLanguage,
     handleSwitchChinese: function () {
-      console.log("handleSwitchChinese");
       this.$store.commit("SET_LANG", "zh-CN");
       this.$i18n.locale = "zh-CN";
     },
     handleSwitchEnglish: function () {
-      console.log("handleSwitchEnglish");
       this.$store.commit("SET_LANG", "en-US");
       this.$i18n.locale = "en-US";
+    },
+    getHeader: function (item) { 
+      if (item.label === "首页") {
+        return this.$t("userLogin.navbar.home");
+      } else if (item.label === "饰品") {
+        return this.$t("userLogin.navbar.tasted");
+      }
     },
   },
 };

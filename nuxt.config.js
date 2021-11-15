@@ -1,3 +1,5 @@
+import env from './env';
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -9,25 +11,26 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' }, 
+      { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet',  href: 'https://at.alicdn.com/t/font_2860731_mgmre1kva8.css' }
+      { rel: 'stylesheet', href: '//at.alicdn.com/t/font_2860731_4uip6tt4ng.css' }
     ],
-    bodyAttrs:{
-      class:'body-class'
+    bodyAttrs: {
+      class: 'body-class'
     }
-  }, 
+  },
   css: [
     '@/assets/index.scss'
-  ], 
+  ],
   router: {
     middleware: ['i18n']
   },
   plugins: [
     '@/plugins/i18n.js',
-    '@/plugins/route.js'
+    '@/plugins/route.js',
+    "@/plugins/element-ui.js"
   ],
   generate: {
     // 这里可能是指定路由
@@ -44,9 +47,23 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
-  ],
-
+  ], 
+  env: {
+    baseUrl: env[process.env.NODE_ENV].BASE_API,
+    site: env[process.env.NODE_ENV].SITE,
+  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    babel: {
+      "plugins": [
+        [
+          "component",
+          {
+            "libraryName": "element-ui",
+            "styleLibraryName": "theme-chalk"
+          }
+        ]
+      ]
+    }
   }
 }

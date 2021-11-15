@@ -3,20 +3,27 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "cross-env NODE_ENV=dev nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@parrotjs/vue-photoalbum": "^2.0.0",
+    "@parrotjs/vue-waterfall": "^7.0.0",
     "axios": "^0.23.0",
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.15.1",
+    "cross-env": "^7.0.3",
+    "element-ui": "^2.15.6",
     "nuxt": "^2.15.7",
-    "vue-i18n": "^8.26.1"
+    "vue-fancybox": "^1.0.3",
+    "vue-i18n": "^8.26.1",
+    "xh-image-preview": "^1.0.19"
   },
   "devDependencies": {
+    "babel-plugin-component": "^1.1.1",
     "sass": "^1.42.1",
     "sass-loader": "^10.1.1"
   }

@@ -7,7 +7,7 @@
     <ul class="list-unstyled mb-7 mb-sm-0">
       <li v-for="(item, index) in data" :key="index">
         <a :href="data.link" class="text-gray-300" :title="item.name">{{
-          item.name
+          item.title
         }}</a>
       </li>
     </ul>
@@ -17,8 +17,7 @@
 <script>
 export default {
   props: ["title", "data"],
-  mounted:function(){
-      console.log("---data----",this.data)
+  mounted:function(){ 
   }
 };
 </script>

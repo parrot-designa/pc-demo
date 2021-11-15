@@ -22,10 +22,7 @@
               <li class="list-inline-item"></li>
             </ul>
           </b-col>
-          <NavItemOne title="服务政策" :data="list1" />
-          <NavItemOne title="购物指南" :data="list2" />
-          <NavItemOne title="配送与支付" :data="list3" />
-          <NavItemOne title="关于我们" :data="list4" />
+          <NavItemOne :title="item.cat_name" :data="item.articles" v-for="(item,index) in getHelpMsg" :key="index" /> 
         </b-row>
       </b-container>
     </div>
@@ -34,38 +31,16 @@
         <b-row>
           <b-col>
             <p class="mb-3 mb-md-0 font-size-xxs text-muted">
-              本站所展示CHROME HEARTS、CHROME HEARTS标志和图案的全部均CHROME
-              HEARTS公司注册商标。
-              <br />
-              声明：本站是CHHES买手店，非克罗心官网，请您知晓。
-              <br />
-              © 2021 chhes.com 保留所有权利. ICP备案证书号:<a
-                style="color: #999"
-                >京ICP备16008025号-21</a
-              >
+              {{globalFooterMsg}}
             </p>
           </b-col>
           <b-col class="col-auto">
             <img
-              src="https://www.chhes.com/assets/img/payment/mastercard.svg"
+              v-for="(item,index) in getFriendLink"
+              :key="index"
+              :src="item.logo"
               class="footer-payment"
-            />
-            <img
-              src="https://www.chhes.com/assets/img/payment/mastercard.svg"
-              class="footer-payment"
-            />
-            <img
-              src="https://www.chhes.com/assets/img/payment/mastercard.svg"
-              class="footer-payment"
-            />
-            <img
-              src="https://www.chhes.com/assets/img/payment/mastercard.svg"
-              class="footer-payment"
-            />
-            <img
-              src="https://www.chhes.com/assets/img/payment/mastercard.svg"
-              class="footer-payment"
-            />
+            /> 
           </b-col>
         </b-row>
       </div>
@@ -77,6 +52,20 @@
 import CustomInput from './CustomInput.vue';
 export default {
   components: { CustomInput },
+  props:{
+    globalFooterMsg:{
+      default:'',
+      type:String
+    },
+    getFriendLink:{
+      default:[],
+      type:Array
+    },
+    getHelpMsg:{
+      default:[],
+      type:Array
+    }
+  },
   data() {
     return {
       list1: [
@@ -106,5 +95,9 @@ export default {
 .footer-payment {
   height: 1.5rem;
   width: auto;
+
+  & + .footer-payment{
+    margin-left:1rem;
+  }
 }
 </style>

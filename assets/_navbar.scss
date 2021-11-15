@@ -1,3 +1,5 @@
+@import './theme.scss';
+
 .navbar{
     padding: 1.5rem 1rem;
 }
@@ -5,23 +7,38 @@
 .navbar-brand{
     font-size: 1.75rem;
     font-weight: 600;
+    padding-top:0;
+    padding-bottom:0;
 }
 
 .nav-link{
-    color: #111;
-}
 
-.navbar-light .navbar-nav .nav-link{
-    font-weight: 600;
-    color: #111;
+    color: $font-color!important;  
+    position: relative;
+    font-weight: 500;
 
+    &.active{
+        color: $active-color!important;
+        cursor: pointer;
+
+        &::before {
+            content: "";
+            position: absolute;
+            left: .75rem;
+            right: .75rem;
+            bottom: .25rem;
+            border-top: 1px solid $active-color;
+        }
+    }     
     &:hover{
-        color: #ff6f61;
+        color: $active-color!important;
     }
     &:focus{
-        color: #ff6f61;
+        color: $active-color;
     }
 }
+
+  
 //有的去除箭头
 .no-arrow{
     .dropdown-toggle::after{
@@ -35,5 +52,7 @@
         visibility: hidden;
         transform-origin: top center;
         opacity: 0;
+        left: 50%;
+        transform: translate(-50%,.5rem);
     }
 }

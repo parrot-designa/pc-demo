@@ -49,13 +49,11 @@ export default {
   },
   methods: {
     transformLanguage,
-    handleSwitchChinese: function () {
-      console.log("handleSwitchChinese");
+    handleSwitchChinese: function () { 
       this.$store.commit("SET_LANG", "zh-CN");
       this.$i18n.locale = "zh-CN";
     },
-    handleSwitchEnglish: function () {
-      console.log("handleSwitchEnglish");
+    handleSwitchEnglish: function () { 
       this.$store.commit("SET_LANG", "en-US");
       this.$i18n.locale = "en-US";
     },

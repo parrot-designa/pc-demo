@@ -152,7 +152,7 @@ import CustomButton from "~/components/CustomButton.vue";
 import axios from "axios";
 import CustomSlidingValidation from "~/components/CustomSlidingValidation.vue";
 import { phoneReg } from "@/utils";
-
+import { login } from '@/server/login'
 let axiosPrefixCls = "https://baba.ltd/";
 
 export default {
@@ -188,6 +188,7 @@ export default {
       let formData = new FormData();
       formData.append("user_name", user_name);
       formData.append("password", password);
+      //const data=await login();
       const data = await axios.post(
         `${axiosPrefixCls}api/Public/login`,
         formData
@@ -263,8 +264,7 @@ export default {
       const data = await axios.post(
         `${axiosPrefixCls}api/Public/reg_sms`,
         formData
-      );
-      console.log(data, "--startSendCode--");
+      ); 
       if (data.data.code == 200) {
         this.countdown = 60;
         let timeout = setInterval(() => {
