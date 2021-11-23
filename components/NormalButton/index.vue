@@ -1,5 +1,5 @@
 <template>
-    <button class='btn' :class="[{'btn-dark':dark},{'btn-outline-dark':!dark}]">
+    <button class='btn' :class="[{'btn-dark':dark},{'btn-outline-dark':!dark},{'btn-block':block}]">
         <slot />
     </button>
 </template>
@@ -10,6 +10,10 @@ export default {
         dark:{
             type:Boolean,
             default:true
+        },
+        block:{
+            type:Boolean,
+            default:false
         }
     }
 }

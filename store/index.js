@@ -1,5 +1,7 @@
 import global from './global';
 import home from './home';
+import good from './good';
+import user from './user';
 
 export const state = () => ({
     locales: ['en-US', 'zh-CN'],
@@ -23,5 +25,7 @@ export const actions={
 
 export const modules={
     global,
-    home
+    home,
+    good,
+    user
 }

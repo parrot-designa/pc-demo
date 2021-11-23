@@ -3,7 +3,10 @@ import axios from 'axios';
 const transformData = (config) => {
 
     let formData = new FormData();
-    formData.append('site', process.env.site)
+    // formData.append('site', process.env.site)
+    if(localStorage.getItem('token')){
+        formData.append('token', localStorage.getItem('token'))
+    }
     if (config.data) {
         Object.keys(config.data).forEach(key => {
             formData.append(key, config.data[key])

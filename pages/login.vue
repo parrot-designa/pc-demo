@@ -151,8 +151,7 @@
 import CustomButton from "~/components/CustomButton.vue";
 import axios from "axios";
 import CustomSlidingValidation from "~/components/CustomSlidingValidation.vue";
-import { phoneReg } from "@/utils";
-import { login } from '@/server/login'
+import { phoneReg } from "@/utils"; 
 let axiosPrefixCls = "https://baba.ltd/";
 
 export default {
@@ -198,6 +197,9 @@ export default {
           autoHideDelay: 1000,
           title: "成功提示",
         });
+        this.$router.push({path:'/login_success'})
+        this.$store.commit('user/SET_TOKEN',data.data.data.token);
+        this.$store.commit('user/SET_INFO',data.data.data);
       } else {
         this.$bvToast.toast(data.data.message, {
           autoHideDelay: 1000,

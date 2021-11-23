@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="card-img">
+        <div class="card-img" @click="$emit('click',info)">
             <div class="card-img-hover">
                 <img class="card-img-top card-img-back" :src="backSrc" />
                 <img class="card-img-top card-img-front" :src="frontSrc" />
@@ -46,6 +46,9 @@ export default{
             default:''
         },
         price:{
+            default:''
+        },
+        info:{
             default:''
         }
     }

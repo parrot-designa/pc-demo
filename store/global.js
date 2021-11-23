@@ -7,6 +7,7 @@ export const state = () => ({
     globalBreadType:1,
     globalBreadItems:[],
     globalPath:'',
+    globalQuery:{},
     globalNavigation:[],
     globalFooterMsg:'',
     getFriendLink:[],
@@ -28,6 +29,9 @@ export const mutations = {
     },
     SET_GLOBAL_PATH(state,path){
         state.globalPath=path;
+    },
+    SET_GLOBAL_QUERY(state,query){
+        state.globalQuery=query;
     },
     SET_NAVIGATION(state,navigation){ 
         state.globalNavigation=navigation;

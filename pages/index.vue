@@ -33,7 +33,11 @@
           <b-col cols="12" md="10" lg="8" xl="6">
             <h2 class="mb-4 text-center">Chrome Hearts 2021 ㊣宗克罗心</h2>
 
-            <CustomTab :tabs="tabList" v-model="tabIndex" classname="justify-content-center mb-10" />
+            <CustomTab
+              :tabs="tabList"
+              v-model="tabIndex"
+              classname="justify-content-center mb-10"
+            />
           </b-col>
         </b-row>
 
@@ -47,10 +51,39 @@
           </template> -->
           <TabPane
             v-for="(item, index) in tabList"
-            :active="tabList[tabIndex].value === item.value"
+            :active="activeTabValue === item.value"
             :key="index"
-            >{{ item.label }}</TabPane
           >
+            <template>
+              <b-row>
+                <b-col
+                  :col="6"
+                  :lg="4"
+                  v-for="(item, index) in goodList[activeTabValue]"
+                  :key="index"
+                >
+                  <CustomGoodItem
+                    :frontSrc="item.img"
+                    :backSrc="item.img"
+                    :goodName="item.goods_name"
+                    :price="item.shop_price"
+                    :info="item"
+                    @click="handleClickGood"
+                  />
+                </b-col>
+              </b-row>
+              <b-row>
+                <b-col :col="12">
+                  <div class="mt-7 text-center">
+                    <CustomLineButton
+                      title="查看更多..."
+                      @click="$router.push({ path: '/good/list' })"
+                    />
+                  </div>
+                </b-col>
+              </b-row>
+            </template>
+          </TabPane>
         </TabContent>
       </b-container>
     </section>
@@ -60,29 +93,21 @@
         <b-row>
           <b-col cols="12" lg="12" class="pt-12 px-9 text-center">
             <span class="iconfont icon-zhaopian h3 mb-6"></span>
-            <h2 class="mb-6">照片墙</h2>
+            <h2 class="mb-6">{{ photo.name }}</h2>
             <p class="mb-8 font-size-lg text-muted">
-              这里展示了玩家提供的日常生活照片，在日常穿戴搭配等...
+              {{ photo.brief }}
             </p>
           </b-col>
           <b-col cols="12" lg="12">
             <b-row class="h-100">
               <HomePic
-                :imgSrc="item.url"
-                v-for="(item, index) in imageList"
+                :imgSrc="item.pic"
+                v-for="(item, index) in photo.data"
                 :key="index"
                 :data-index="index"
                 :externalIndex="index"
                 @click="handleClick(index)"
               />
-              
-              <el-image
-                style="width: 100px; height: 100px; display: none"
-                :src="currentImage.url"
-                :preview-src-list="imageList.map((item) => item.url)"
-                ref="image"
-              >
-              </el-image>
             </b-row>
           </b-col>
           <b-col cols="12" class="py-5 text-center">
@@ -94,7 +119,7 @@
         </b-row>
       </b-container>
     </section>
-    <phonealbum ref="phonealbum" :imgsArr="imageList" />
+    <phonealbum ref="phonealbum" :imgsArr="photoList" />
     <GlobalFooterMessage />
   </div>
 </template>
@@ -104,26 +129,12 @@ import HomePic from "./comps/HomePic.vue";
 import { getBanners } from "@/server/home";
 import { mapState, mapMutations } from "vuex";
 import { TabContent, TabPane } from "@/components/CustomTabContent";
-import phonealbum from '@parrotjs/vue-photoalbum';
+import phonealbum from "@parrotjs/vue-photoalbum";
 import "@parrotjs/vue-photoalbum/dist/vue-photoalbum.css";
 export default {
   data() {
     return {
       visible: false,
-      imageList: [
-        { url: "https://www.chhes.com/pic/IMG_5988.JPG",src: "https://www.chhes.com/pic/IMG_5988.JPG" },
-        { url: "https://www.chhes.com/pic/IMG_5987.JPG",src: "https://www.chhes.com/pic/IMG_5987.JPG" },
-        { url: "https://www.chhes.com/pic/IMG_5986.JPG",src: "https://www.chhes.com/pic/IMG_5986.JPG" },
-        { url: "https://www.chhes.com/pic/IMG_5985.JPG",src: "https://www.chhes.com/pic/IMG_5985.JPG" },
-        { url: "https://www.chhes.com/pic/IMG_5984.JPG",src: "https://www.chhes.com/pic/IMG_5984.JPG" },
-        { url: "https://www.chhes.com/pic/IMG_5983.JPG",src: "https://www.chhes.com/pic/IMG_5983.JPG" },
-        { url: "https://www.chhes.com/pic/IMG_5982.JPG",src: "https://www.chhes.com/pic/IMG_5982.JPG" },
-        { url: "https://www.chhes.com/pic/IMG_5981.JPG",src: "https://www.chhes.com/pic/IMG_5981.JPG" },
-        { url: "https://www.chhes.com/pic/IMG_5980.JPG",src: "https://www.chhes.com/pic/IMG_5980.JPG" },
-        { url: "https://www.chhes.com/pic/IMG_5979.JPG",src: "https://www.chhes.com/pic/IMG_5979.JPG" },
-        { url: "https://www.chhes.com/pic/IMG_5978.JPG",src: "https://www.chhes.com/pic/IMG_5978.JPG" },
-        { url: "https://www.chhes.com/pic/IMG_5977.JPG",src: "https://www.chhes.com/pic/IMG_5977.JPG" },
-      ],
       tabList: [
         { label: "最新发布", value: "new" },
         { label: "热卖商品", value: "hot" },
@@ -137,26 +148,38 @@ export default {
     HomePic,
     TabContent,
     TabPane,
-    phonealbum
+    phonealbum,
   },
   computed: {
     ...mapState("home", {
       goodList: (state) => state.goodList,
+      photo: (state) => state.photo,
     }),
+    activeTabValue: function () {
+      return this.tabList[this.tabIndex].value;
+    },
+    photoList: function () {
+      if (!this.photo.data) return [];
+      return this.photo.data.map((item) => ({ ...item, src: item.pic }));
+    },
   },
   methods: {
     handleClick(index) {
-      console.log("this.$refs.phonealbum",this.$refs.phonealbum)
+      console.log("this.$refs.phonealbum", this.$refs.phonealbum);
       this.$refs.phonealbum.show({
-        index
-      })
-      // console.log(this.$refs.image.clickHandler());
-      // this.currentImage = { url: this.imageList[index].url };
+        index,
+      });
     },
+    handleClickGood(item){ 
+      this.$router.push({
+        path:`/good/item?id=${item.id}`
+      })
+    }
   },
   mounted: async function () {
     let banners = await getBanners();
     this.$store.dispatch("home/getGoods");
+    this.$store.dispatch("home/getPhoto");
   },
 };
 </script>

@@ -14,7 +14,7 @@
           <b-row class="mb-6">
             <b-col cols="12">
               <span class="font-size-xl text-muted">
-                您的上一次登录时间:
+                您的上一次登陆时间:
                 <time datetime="2021-10-22 17:27:50">2021-10-22 17:27:50</time>
               </span>
             </b-col>

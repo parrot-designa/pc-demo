@@ -19,8 +19,8 @@
           CHHES
         </a>
         <b-navbar-nav>
-          <b-nav-item href="#" class="text-body">{{
-            $t("userLogin.navbar.loginText")
+          <b-nav-item href="#" class="text-body" @click="$router.push({path:'/login'})">{{
+            useInfo.user_name||useInfo.phone||$t("userLogin.navbar.loginText")
           }}</b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav>
@@ -51,7 +51,7 @@ export default {
   data() {
     return {};
   },
-  props: ["bgColor", "globalNavigation"],
+  props: ["bgColor", "globalNavigation","useInfo"],
   components: {
     MenuItemOne,
   },

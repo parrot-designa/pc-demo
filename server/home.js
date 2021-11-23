@@ -9,3 +9,8 @@ export function getBanners(){
 export function getIndexGoods(){
     return request.post('/api/Index/get_goods');
 }
+
+//获取首页照片墙
+export function getIndexPhones(){
+    return request.post('/api/Index/phones');
+}

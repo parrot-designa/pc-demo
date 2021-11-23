@@ -1,41 +1,47 @@
 <template>
-    <div>
-        <Input />
+  <div>
+    <Input />
 
-        <b-container>
-            <b-row class="pt-8 m-3">
-                <b-col :cols="6" :lg="4">
-                    <CustomGoodItem 
-                        class="mb-7" 
-                        backSrc="https://www.chhes.com/images/202110/thumb_img/1283_thumb_P_1633668906462.jpg"    
-                        frontSrc="https://www.chhes.com/images/202110/thumb_img/1283_thumb_G_1633668906573.jpg"   
-                        goodName="Chrome hearts ㊣宗克罗心 拱形FK横幅连帽拉链卫衣"
-                        price="5580" 
-                    />
-                </b-col>
-                <b-col :cols="6" :lg="4">
-                    测试
-                </b-col>
-                <b-col :cols="6" :lg="4">
-                    测试
-                </b-col>
-            </b-row>
-        </b-container>
-        
-        <CustomPagination />
-    </div>
+    <b-container>
+      <b-row class="pt-8 m-3">
+        <b-col :cols="6" :lg="4" v-for="(item,index) in dataSource" :key="index">
+          <CustomGoodItem
+            class="mb-7"
+            :backSrc="item.goods_thumb"
+            :frontSrc="item.goods_thumb"
+            :goodName="item.goods_name"
+            :price="item.shop_price"
+          />
+        </b-col> 
+      </b-row>
+    </b-container>
+
+    <CustomPagination />
+  </div>
 </template>
 
 <script>
-import Input from './coms/Input.vue';
-
+import Input from "./coms/Input.vue";
+import { mapState, mapMutations } from "vuex";
 export default {
-    components:{
-        Input
-    }
-}
+  components: {
+    Input,
+  },
+   computed: {
+    ...mapState("good", {
+      dataSource: (state) => state.dataSource 
+    }), 
+  },
+  methods:{
+      getGoodList:function(params){
+        this.$store.dispatch("good/getGoodsList",params); 
+      }
+  },
+  mounted: async function () { 
+    this.getGoodList();
+  },
+};
 </script>
 
 <style  lang="scss" scoped>
-
 </style>
