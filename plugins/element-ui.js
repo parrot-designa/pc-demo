@@ -11,7 +11,8 @@ import {
   FormItem,
   Input,
   Image,
-  Popover
+  Popover,
+  Message
 } from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/en'
 
@@ -27,7 +28,7 @@ const components = [
   FormItem,
   Input,
   Image,
-  Popover
+  Popover,
 ];
 
 const Element = {
@@ -37,5 +38,7 @@ const Element = {
     })
   }
 }
+
+Vue.prototype.$message = Message;
 
 Vue.use(Element, { locale })

@@ -35,8 +35,7 @@ class CreateAxios {
             return config
         })
         this.inst.interceptors.response.use(
-            (res) => {
-                console.log("aaa", res)
+            (res) => { 
                 if (res.status === 200 && res.data.code == 200) {
                     return res.data.data
                 }

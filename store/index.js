@@ -2,6 +2,8 @@ import global from './global';
 import home from './home';
 import good from './good';
 import user from './user';
+import address from './address';
+import cart from './cart';
 
 export const state = () => ({
     locales: ['en-US', 'zh-CN'],
@@ -27,5 +29,7 @@ export const modules={
     global,
     home,
     good,
-    user
+    user,
+    cart,
+    address
 }

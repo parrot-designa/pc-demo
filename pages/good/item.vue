@@ -107,7 +107,7 @@
                     <CustomInputNumber className="mb-2" />
                   </div>
                   <div class="col-12 col-lg"> 
-                       <normal-button :block="true">
+                       <normal-button :block="true" @click="handleAddCart">
                           加入购物车 
                         </normal-button> 
                   </div>
@@ -538,6 +538,7 @@
 
 <script>
 import { mapState } from "vuex";
+import S from '@/spx';
 export default {
   data() {
     return {
@@ -588,6 +589,18 @@ export default {
     getDetail() {
       this.$store.dispatch("good/getGoodDetail", { goods_id: this.goodId });
     },
+    handleAddCart(){
+      if(!S.getAuthToken()){
+        this.$router.push({path:'/login'})
+        return this.$bvToast.toast('请先登陆', {
+          autoHideDelay: 1000,
+          title: "错误提示",
+        });
+      }else{
+        this.$store.dispatch("cart/addCart", { gid: this.goodId,num:1,pid:45 });
+      }
+      
+    }
   },
 };
 </script>

@@ -3,7 +3,8 @@ module.exports = {
     dev: {
       NODE_ENV: 'development',
       BASE_API: 'https://baba.ltd/', // 开发服务器地址
-      SITE:101
+      SITE:101,
+      IMAGE_PREFIX:''
     },
     // 测试环境
     test: {

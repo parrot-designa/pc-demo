@@ -2,18 +2,20 @@
     <li class="list-group-item">
         <b-row align-h="center">
             <b-col cols="3">
-                <img src="https://www.chhes.com/images/202109/thumb_img/1138_thumb_G_1632343621320.jpg" class="img-fluid" />
+                <img :src="src" class="img-fluid" />
             </b-col>
             <b-col>
                 <div class="d-flex mb-2 font-weight-bold">
-                    <div class="text-body">Chrome hearts 克罗心 Matty Boy Ulein 太阳镜</div>
-                    <span class="ml-auto">￥13800.00</span>
+                    <div class="text-body">{{name}}</div>
+                    <span class="ml-auto">￥{{price}}</span>
                 </div>
                 <p class="mb-7 font-size-sm text-muted">
                     <br />
                 </p>
                 <div class="d-flex align-items-center">
-                    <CustomInputNumber />
+                    <CustomInputNumber v-model="num" :initialValue="initialNum" />
+
+                    <NormalButton @click="handleDelete">删除</NormalButton>
                 </div>
             </b-col>
         </b-row>
@@ -22,7 +24,36 @@
 
 <script>
 export default {
-    
+    data(){
+        return {
+            num:1
+        }
+    },
+    props:['name','price','src','initialNum','good_id',"pid"],
+    watch:{
+        initialNum:{
+            handler:function(newVal){ 
+                this.num=newVal;
+            },
+            immediate:true
+        },
+        num:{
+            handler:function(newVal,oldVal){
+                let numChange=newVal-oldVal;
+                if(numChange>0){//增加
+                    this.$store.dispatch("cart/editCart", { gid: this.good_id,num:newVal,pid:this.pid });
+                }else{//减少
+                    this.$store.dispatch("cart/editCart", { gid: this.good_id,num:newVal,pid:this.pid });
+                } 
+            },
+            immediate:true
+        }
+    },
+    methods:{
+        handleDelete:function(){
+            this.$emit("delete")
+        }
+    }
 }
 </script>
 

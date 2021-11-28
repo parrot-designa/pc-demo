@@ -51,6 +51,7 @@ export default {
   env: {
     baseUrl: env[process.env.NODE_ENV].BASE_API,
     site: env[process.env.NODE_ENV].SITE,
+    img_prefix:env[process.env.NODE_ENV].IMAGE_PREFIX
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

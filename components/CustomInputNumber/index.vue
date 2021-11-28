@@ -16,6 +16,9 @@ export default {
     min:{
       type:Number,
       default:1
+    },
+    initialValue:{
+      type:Number,
     }
   },
   data(){
@@ -25,9 +28,14 @@ export default {
   },
   watch:{
     value:{
-      handler:function(newVal){
-        console.log("====value====>",newVal)
+      handler:function(newVal){ 
         this.$emit('input',newVal);
+      },
+      immediate:true
+    },
+    initialValue:{
+      handler:function(newVal){ 
+        this.value=newVal;
       },
       immediate:true
     }
