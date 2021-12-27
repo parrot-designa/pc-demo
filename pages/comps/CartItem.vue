@@ -41,9 +41,13 @@ export default {
             handler:function(newVal,oldVal){
                 let numChange=newVal-oldVal;
                 if(numChange>0){//增加
-                    this.$store.dispatch("cart/editCart", { gid: this.good_id,num:newVal,pid:this.pid });
+                    this.$store.dispatch("cart/editCart", { gid: this.good_id,num:newVal,pid:this.pid }).then(res=>{
+                        if(res){this.$emit("editSuccess")}
+                    });
                 }else{//减少
-                    this.$store.dispatch("cart/editCart", { gid: this.good_id,num:newVal,pid:this.pid });
+                    this.$store.dispatch("cart/editCart", { gid: this.good_id,num:newVal,pid:this.pid }).then(res=>{
+                        if(res){this.$emit("editSuccess")}
+                    });
                 } 
             },
             immediate:true

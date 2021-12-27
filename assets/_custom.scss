@@ -1,16 +1,23 @@
 .custom-control {
+    padding-left: 0;
+}
+
+.custom-control {
     position: relative;
     display: block;
     min-height: 1.5rem;
     padding-left: 2rem;
-}
-.custom-control .custom-control-label{
-    color: #767676;
-    cursor: pointer;
-}
 
-.custom-control {
-    padding-left: 0;
+    &.checked{
+        .custom-control-label::before{
+            border-width: 5px;
+        }
+    }
+
+}
+input[type=checkbox], input[type=radio] {
+    box-sizing: border-box;
+    padding: 0;
 }
 .custom-control-input{
     position: absolute;
@@ -19,7 +26,14 @@
     width: 1.125rem;
     height: 1.3125rem;
     opacity: 0;
+
+   
 }
+
+.custom-control .custom-control-label{
+    color: #767676;
+    cursor: pointer;
+} 
 .custom-control .custom-control-input:checked~.custom-control-label{
     color: #111;
 }
@@ -32,4 +46,17 @@
     margin-bottom: 0;
     color: #767676;
     vertical-align: top;
+}
+
+.custom-control-label::before{
+    position: absolute;
+    top: 0.1875rem;
+    left: -2rem;
+    display: block;
+    width: 1.125rem;
+    height: 1.125rem;
+    pointer-events: none;
+    content: "";
+    background-color: #e5e5e5;
+    border: #525252 solid 0;
 }

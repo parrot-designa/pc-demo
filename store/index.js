@@ -4,6 +4,7 @@ import good from './good';
 import user from './user';
 import address from './address';
 import cart from './cart';
+import order from './order';
 
 export const state = () => ({
     locales: ['en-US', 'zh-CN'],
@@ -31,5 +32,6 @@ export const modules={
     good,
     user,
     cart,
-    address
+    address,
+    order
 }

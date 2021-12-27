@@ -6,11 +6,7 @@
         <div class="form-row">
           <div class="col-auto">
             <custom-select
-              :options="[
-                { name: '2000', value: '2000' },
-                { name: '2010', value: '2010' },
-                { name: '2020', value: '2020' },
-              ]"
+              :options="yearOptions"
             />
           </div>
           <div class="col-auto">
@@ -90,3 +86,30 @@
     </b-row>
   </b-row>
 </template>
+
+<script>
+import { mapState } from 'vuex';
+import { dateUtil,generateYear } from '@/utils';
+
+export default {
+  data(){
+    return {
+      yearOptions:[],
+      year:dateUtil().year
+    }
+  },
+  watch:{
+    year:{
+      handler(newVal){
+        this.yearOptions=generateYear(newVal)
+      },
+      immediate:true
+    }
+  },
+  computed:{
+      ...mapState('user',{
+      useInfo:state=>state.info
+    }) 
+  }  
+}
+</script>

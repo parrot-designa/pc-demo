@@ -8,7 +8,8 @@ export const state = () => ({
 
 export const mutations = {
 	// 此处为设置头部背景色
-    SET_INFO(state, info) {  
+    SET_INFO(state, info) {   
+        localStorage.setItem('info',JSON.stringify(info))
         state.info=info;
     },
     SET_TOKEN(state,token){
@@ -20,9 +21,9 @@ export const mutations = {
 export const actions = {
 	// 此处为设置头部背景色
     async getInfo({commit}){ 
-        const info=await getUserInfo(); 
-        if(info){
-            commit ('SET_INFO',info);
+        const { data }=await getUserInfo();  
+        if(data){
+            commit ('SET_INFO',data);
         }
         
     }, 

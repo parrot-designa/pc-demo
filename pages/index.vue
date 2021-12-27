@@ -63,8 +63,8 @@
                   :key="index"
                 >
                   <CustomGoodItem
-                    :frontSrc="item.img"
-                    :backSrc="item.img"
+                    :frontSrc="item.img.middle_url"
+                    :backSrc="item.img.thumb_url"
                     :goodName="item.goods_name"
                     :price="item.shop_price"
                     :info="item"
@@ -154,7 +154,7 @@ export default {
     ...mapState("home", {
       goodList: (state) => state.goodList,
       photo: (state) => state.photo,
-    }),
+    }), 
     activeTabValue: function () {
       return this.tabList[this.tabIndex].value;
     },

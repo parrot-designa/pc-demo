@@ -30,3 +30,8 @@ export function clearCart(params){
 export function getTotalCart(params){  
     return request.post('/api/Cart/get_total',params);
 }
+
+//购物车购买
+export function shopCartBuy(){
+    return request.post('/api/shop/product_save_cart');
+}

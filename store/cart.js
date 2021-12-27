@@ -1,12 +1,12 @@
 
-import { addCart, cartList ,editCart,delCartOne,clearCart, getTotalCart } from '@/server/cart';
+import { addCart, cartList ,editCart,delCartOne,clearCart, getTotalCart,shopCartBuy } from '@/server/cart';
 
 export const state = () => ({
     detail: {},
     list:[],
     total:{
-        num:0,
-        price:0
+        total_num:0,
+        total_price:0
     }
 });
 
@@ -41,16 +41,13 @@ export const actions = {
     async cartList({commit,dispatch},params){
         const res=await cartList(); 
         const res_data=res.data.map((item,index)=>({...item,...item.product_info}))
-        console.log("==res_data==", res_data)
-        await dispatch("getTotal")
+        console.log("==res_data==", res_data)  
         await commit('SET_LIST',res_data);
+        await dispatch('getTotal')
     },
     async editCart({commit,dispatch},params){
         const res=await editCart(params); 
-     
-        if (res.errcode === 0) {
-
-        }
+        return res.errcode===0
     },
     async deleteCart({commit,dispatch},params){
         const res=await delCartOne(params);  
@@ -67,6 +64,10 @@ export const actions = {
     async getTotal({commit,dispatch},params){
         const res=await getTotalCart(params);  
         await commit('SET_TOTAL',res.data);
+    },
+    async shopCartBuy({commit}){
+        const res=await shopCartBuy();  
+        return res.errcode===0
     }
 };
 

@@ -20,7 +20,7 @@
         </a>
         <b-navbar-nav>
           <b-nav-item href="#" class="text-body" @click="$router.push({path:'/login'})">{{
-            useInfo.user_name||useInfo.phone||$t("userLogin.navbar.loginText")
+            getUseName()
           }}</b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav>
@@ -58,6 +58,13 @@ export default {
   watch: {  
   },
   methods: {
+    getUseName:function(){
+      console.log("===VUE_ENV",process.env.VUE_ENV)
+      if(process.env.VUE_ENV=='client'){ 
+        let storageInfo=JSON.parse(localStorage.getItem('info')||'{}');
+        return this.useInfo.user_name||this.useInfo.phone||this.$t("userLogin.navbar.loginText")||storageInfo.user_name||storageInfo.phone
+      } 
+    },
     childLength:function(children){
       return (children||[]).length;
     },

@@ -1,10 +1,9 @@
 
 <template>
-    <div class="custom-control custom-radio" :class="[{'checked':checked}]" @click="handleSelect">
+    <div class="custom-control custom-checkbox" :class="[{'checked':checked}]">
         <input class="custom-control-input" />
-        <label class="custom-control-label">
-            <b>{{label}}</b>
-            <span class="ml-5">{{text}}</span>
+        <label class="custom-control-label font-size-sm collapsed">
+             {{label}}
         </label>
     </div>
 </template>
@@ -22,11 +21,6 @@ export default {
         },
         checked:{
             type:Boolean,
-        }
-    },
-    methods:{
-        handleSelect:function(){
-            this.$emit("click");
         }
     }
 }

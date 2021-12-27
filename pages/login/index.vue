@@ -197,7 +197,7 @@ export default {
           autoHideDelay: 1000,
           title: "成功提示",
         });
-        this.$router.push({path:'/login_success'})
+        this.$router.push({path:'/login/success'})
         this.$store.commit('user/SET_TOKEN',data.data.data.token);
         this.$store.commit('user/SET_INFO',data.data.data);
       } else {
@@ -205,8 +205,7 @@ export default {
           autoHideDelay: 1000,
           title: "错误提示",
         });
-      }
-      console.log("--onSubmitRegister---", data);
+      } 
     },
     onResetLogin() {},
     async onSubmitRegister(evt) {
@@ -252,8 +251,7 @@ export default {
           autoHideDelay: 1000,
           title: "错误提示",
         });
-      }
-      console.log("--onSubmitRegister---", data);
+      } 
     },
     onResetRegister() {},
     //发送验证码

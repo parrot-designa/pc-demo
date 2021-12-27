@@ -6,7 +6,7 @@
 export default {
     mounted:function(){
         setTimeout(()=>{
-            this.$router.push({path:'/'})
+            this.$router.push({path:'/user'})
         },3000)
     }
 }

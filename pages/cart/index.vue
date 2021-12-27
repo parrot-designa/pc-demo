@@ -19,6 +19,7 @@
                 :good_id="item.gid"
                 :pid="item.pid"
                 @delete="handleDelete(item)"
+                @editSuccess="handleEditSuccess"
             />
           </ul>
           <div v-else>
@@ -39,18 +40,18 @@
                     <ul class="list-group list-group-sm list-group-flush-y list-group-flush-x">
                         <li class="list-group-item d-flex">
                             <span>小计</span>
-                            <span class="ml-auto font-size-sm">¥{{total.price}}</span>
+                            <span class="ml-auto font-size-sm">¥{{total.total_price}}</span>
                         </li>
                         <li class="list-group-item d-flex font-size-lg font-weight-bold">
                             <span>总计</span>
-                            <span class="ml-auto font-size-sm">¥{{total.price}}</span>
+                            <span class="ml-auto font-size-sm">¥{{total.total_price}}</span>
                         </li>
                         <li class="list-group-item font-size-sm text-center text-gray-500"></li>
                     </ul>
                 </div>
             </div>
             
-            <NormalButton :block="true" @click="$router.push({path:'/checkout'})">去结算</NormalButton>
+            <NormalButton :block="true" @click="handleCheckout">去结算</NormalButton>
             <NormalButton @click="$router.push({path:'/'})">继续购物</NormalButton>
         </b-col>
       </b-row>
@@ -59,7 +60,7 @@
 </template>
 
 <script>
-import CartItem from "./comps/CartItem.vue";
+import CartItem from "../comps/CartItem.vue";
 import { mapState } from "vuex";
 export default {
   components: {
@@ -83,7 +84,20 @@ export default {
         this.$store.dispatch("cart/deleteCart", { gid: item.gid,pid:item.pid });
     },
     handleClean(){
-        this.$store.dispatch("cart/cleanCart");
+      this.$store.dispatch("cart/cleanCart");
+    },
+    getTotal(){
+      this.$store.dispatch("cart/getTotal");
+    },
+    handleEditSuccess(){
+      this.getTotal()
+    },
+    handleCheckout(){
+      this.$store.dispatch("cart/shopCartBuy").then(res=>{
+        if(res){
+          this.$router.push("/checkout")
+        }
+      });
     }
   },
 };

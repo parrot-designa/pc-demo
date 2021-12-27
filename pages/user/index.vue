@@ -8,7 +8,7 @@
           />
         </b-col>
         <b-col cols="12" md="8" lg="9" xl="10">
-          <h3 class="mt-3 mb-5 font-weight-bold">squallwangjin</h3>
+          <h3 class="mt-3 mb-5 font-weight-bold">{{useInfo.user_name}}</h3>
           <h5 class="mb-2 font-weight-bold"></h5>
           <h5 class="text-gray-500"></h5>
           <b-row class="mb-6">
@@ -40,14 +40,14 @@
                 </span>
                 <span class="badge badge-dark font-size-sm">查看全部订单</span>
               </div>
-               <div class="mt-3 font-size-xl text-muted">
+              <div class="mt-3 font-size-xl text-muted">
                 <span class="font-size-sm">
                   <i class="iconfont icon-yue"></i>
                   <span>优惠券：共计3个，价值¥300.00</span>
                 </span>
                 <span class="badge badge-dark font-size-sm">查看优惠券</span>
               </div>
-               <div class="mt-3 font-size-xl text-muted">
+              <div class="mt-3 font-size-xl text-muted">
                 <span class="font-size-sm">
                   <i class="iconfont icon-yue"></i>
                   <span>余额¥0.00</span>
@@ -61,3 +61,17 @@
     </CustomReview>
   </div>
 </template>
+
+<script>
+import { mapState } from "vuex";
+export default {
+  data() {
+    return {};
+  },
+  computed: {
+    ...mapState("user", {
+      useInfo: (state) => state.info,
+    }),
+  },
+};
+</script>
