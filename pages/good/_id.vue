@@ -566,11 +566,20 @@ export default {
       currentSelectIndex: 0,
       goodId: 0,
     };
-  },
-  mounted: function () {
-    console.log("===location===", location);
-    this.goodId = location.search.substr(4);
-    this.getDetail();
+  }, 
+  async asyncData ({ app, route, req, params, query }) {
+    const { id } = route.params 
+
+    const info = await app.$api.item.detail(id, {
+      // distributor_id,
+      // is_tdk: 1
+    })
+
+    return {
+      // info,
+      // tdk_data: info.tdk_data,
+      // goodsDesc: Array.isArray(info.intro) ? info.intro : resolveLazyLoadImg(info.intro)
+    }
   },
   computed: {
     ...mapState("global", {

@@ -142,6 +142,7 @@ export default {
       ],
       tabIndex: 0,
       currentImage: {},
+      info:{}
     };
   },
   components: {
@@ -164,15 +165,14 @@ export default {
     },
   },
   methods: {
-    handleClick(index) {
-      console.log("this.$refs.phonealbum", this.$refs.phonealbum);
+    handleClick(index) { 
       this.$refs.phonealbum.show({
         index,
       });
     },
     handleClickGood(item){ 
       this.$router.push({
-        path:`/good/item?id=${item.id}`
+        path:`/good/${item.id}`
       })
     }
   },

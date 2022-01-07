@@ -1,10 +1,10 @@
 <template>
     <div class="card">
         <div class="card-img" @click="$emit('click',info)">
-            <div class="card-img-hover">
+            <a class="card-img-hover">
                 <img class="card-img-top card-img-back" :src="backSrc" />
                 <img class="card-img-top card-img-front" :src="frontSrc" />
-            </div>
+            </a>
             <div class="card-actions">
                 <span class="card-action">
                     <a class="btn btn-xs btn-circle btn-white-primary">
@@ -55,27 +55,5 @@ export default{
 }
 </script>
 
-<style lang="scss" scoped>
-.card-img-back{
-    opacity: 0;
-    height:0;
-}
-.card-img-hover{
-    display: grid;
-}
-.card-img-top{
-    transition: opacity .5s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-.card-img-hover{
-    &:hover{
-        .card-img-front{
-            opacity: 0; 
-             height:0;
-        }
-        .card-img-back{
-            opacity: 1;
-            height:auto;
-        }
-    }
-}
+<style lang="scss" scoped> 
 </style>
