@@ -565,18 +565,18 @@ export default {
       tabIndex: 0,
       currentSelectIndex: 0,
       goodId: 0,
+      info:{}
     };
   }, 
-  async asyncData ({ app, route, req, params, query }) {
-    const { id } = route.params 
+  async asyncData ({ app, route, req, params, query }) { 
+    const { id:goods_id } = route.params 
+ 
+    const info = await app.$api.good.detail({goods_id});
 
-    const info = await app.$api.item.detail(id, {
-      // distributor_id,
-      // is_tdk: 1
-    })
+    console.log("info==>",info)
 
     return {
-      // info,
+      info,
       // tdk_data: info.tdk_data,
       // goodsDesc: Array.isArray(info.intro) ? info.intro : resolveLazyLoadImg(info.intro)
     }
@@ -589,15 +589,12 @@ export default {
     ...mapState("good", {
       detail: (state) => state.detail,
     }),
-  },
+  }, 
   methods: {
     switchPhoto(item, i) {
       this.headPhoto = item.src;
       this.currentSelectIndex = i;
-    },
-    getDetail() {
-      this.$store.dispatch("good/getGoodDetail", { goods_id: this.goodId });
-    },
+    }, 
     handleAddCart(){
       if(!S.getAuthToken()){
         this.$router.push({path:'/login'})

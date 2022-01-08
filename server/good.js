@@ -1,4 +1,4 @@
-import request from '@/utils/request';
+import request from './req';
 
 //获取轮播图
 export function getGoodsList(params){ 
@@ -7,8 +7,8 @@ export function getGoodsList(params){
 
 
 //获取商品详情
-export function getGoodDetail(params){  
-    return request.post('/api/goods/index',params);
+export async function detail(params){    
+    return request.post('/api/goods/basic',params);
 }
 
  

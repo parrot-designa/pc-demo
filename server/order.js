@@ -1,4 +1,4 @@
-import request from '@/utils/request';
+import request from './req';
 
 //创建订单
 export function createOrder(){ 

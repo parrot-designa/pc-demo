@@ -1,4 +1,4 @@
-import request from '@/utils/request';
+import request from './req';
 
 //获取导航
 export function getHeaderNav(){  

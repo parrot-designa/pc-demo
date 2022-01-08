@@ -48,6 +48,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
+    'cookie-universal-nuxt'
   ], 
   env: {
     baseUrl: env[process.env.NODE_ENV].BASE_API,

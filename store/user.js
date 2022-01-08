@@ -13,7 +13,7 @@ export const mutations = {
         state.info=info;
     },
     SET_TOKEN(state,token){
-        localStorage.setItem('token',token)
+        this.$cookies.set('TOKEN',token);
         state.token=token;
     }
 };

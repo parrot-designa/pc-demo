@@ -1,4 +1,4 @@
-import request from '@/utils/request';
+import request from './req';
 
 //获取用户信息
 export function getUserInfo(){ 

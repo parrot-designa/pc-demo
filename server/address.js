@@ -1,4 +1,4 @@
-import request from '@/utils/request';
+import request from './req';
 
 //获取总地址
 export function getAllAddressList(){  

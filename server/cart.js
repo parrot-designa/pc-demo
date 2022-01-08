@@ -1,4 +1,4 @@
-import request from '@/utils/request';
+import request from './req';
 
 //加入购物车
 export function addCart(params){  

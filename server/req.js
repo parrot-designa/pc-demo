@@ -1,11 +1,18 @@
 import axios from 'axios';
+import FormData from 'form-data';
+import S from '@/spx';
+
 
 const transformData = (config) => {
+   
+if(process.env.VUE_ENV=='client'){ 
+    console.log("$nuxt",$nuxt);
+}
 
-    let formData = new FormData();
+    let formData = new FormData(); 
     // formData.append('site', process.env.site)
-    if(localStorage.getItem('token')){
-        formData.append('token', localStorage.getItem('token'))
+    if($nuxt.$cookies.get('TOKEN')){
+        formData.append('token',$nuxt.$cookies.get('TOKEN'))
     }
     if (config.data) {
         Object.keys(config.data).forEach(key => {
@@ -25,6 +32,7 @@ class CreateAxios {
 
     created() {
         console.log('CreateAxios Class created......', process.env.baseUrl)
+      
         this.inst = axios.create();
         this.inst.defaults.timeout = 30 * 1000;
         this.inst.defaults.baseURL = process.env.baseUrl;
@@ -41,8 +49,7 @@ class CreateAxios {
                 }
             },
             (err) => {
-                console.log('xxx:', err)
-
+                console.log('xxxreq:', err) 
             }
         )
         return this.inst;
@@ -62,9 +69,5 @@ class CreateAxios {
 }
 
 const req = CreateAxios.getInstance()
-
-export {
-    CreateAxios
-}
 
 export default req;

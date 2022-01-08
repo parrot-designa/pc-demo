@@ -1,4 +1,4 @@
-import request from '@/utils/request';
+import request from './req';
 
 //获取结算页商品信息
 export function getGoodsInfo(){  
