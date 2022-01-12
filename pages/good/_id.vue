@@ -6,12 +6,7 @@
           <b-row>
             <b-col cols="12" md="6">
               <b-card class="img-card mb-4">
-                <img :src="headPhoto" />
-                <div
-                  class="badge badge-primary card-badge text-uppercase left-0"
-                >
-                  {{ tag }}
-                </div>
+                <img :src="headPhoto" /> 
               </b-card>
               <div class="view-actions mb-10">
                 <div
@@ -66,8 +61,10 @@
                   <GoodsAttr
                     v-for="(item,index) in attr_spec"
                     :key="index"
+                    :itemindex="index"
                     :attrName="item.attr_name"
                     :dataSource="item.attr_values"
+                    @change="handleGoodsAttr"
                   />
                 </div> 
 
@@ -509,17 +506,25 @@ export default {
     //多规格价格
     good_price(){ 
       const mapId=this.goods_attr.join(',');
-   console.log("====this.goods_attr",mapId,this.product_info)
-      return 1;
+      const current_product=this.product_info.find(item=>item.goods_attr===mapId)||{}  
+      return current_product.market_price;
+    },
+    pid(){
+      const mapId=this.goods_attr.join(',');
+      const current_product=this.product_info.find(item=>item.goods_attr===mapId)||{}  
+      return current_product.pid;
     }
   }, 
   methods: {
+    handleGoodsAttr(item,index){ 
+      this.goods_attr[index]=item.goods_attr_id
+      this.goods_attr=[...this.goods_attr]
+    },
     switchPhoto(item, i) {
       this.headPhoto = item.src;
       this.currentSelectIndex = i;
     }, 
-    handleAddCart(){
-      debugger;
+    handleAddCart(){ 
       if(!this.$nuxt.$cookies.get('TOKEN')){
         this.$router.push({path:'/login'})
         return this.$bvToast.toast('请先登陆', {

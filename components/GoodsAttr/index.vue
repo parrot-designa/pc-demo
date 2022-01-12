@@ -30,6 +30,12 @@ export default {
         return "属性";
       },
     },
+    itemindex:{
+      type: Number,
+      default: () => {
+        return 0;
+      },
+    }
   },
   data() {
     return {
@@ -38,6 +44,7 @@ export default {
   },
   methods: {
     selectItrem(item,index) {
+      this.$emit('change',item,this.itemindex)
       this.currentIdx = index;
     },
   },
