@@ -58,8 +58,7 @@ export default {
   watch: {  
   },
   methods: {
-    getUseName:function(){
-      console.log("===VUE_ENV",process.env.VUE_ENV)
+    getUseName:function(){ 
       if(process.env.VUE_ENV=='client'){ 
         let storageInfo=JSON.parse(localStorage.getItem('info')||'{}');
         return this.useInfo.user_name||this.useInfo.phone||this.$t("userLogin.navbar.loginText")||storageInfo.user_name||storageInfo.phone

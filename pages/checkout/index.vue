@@ -76,16 +76,14 @@ export default {
     },
     watch:{
         payValue:{
-            handler:function(newValue){
-                console.log("====newValue",newValue)
+            handler:function(newValue){ 
                 if(newValue){
                     savePayType({payment_code:newValue});
                 } 
             }
         },
         shipValue:{
-            handler:function(newValue){ 
-                console.log("===shipValue",newValue)
+            handler:function(newValue){  
                 if(newValue){
                     saveShip({shipping_code:newValue});
                 } 
@@ -94,8 +92,7 @@ export default {
     },
     methods:{
         getDefaultAddress:async function(){
-            let address=await this.$store.dispatch("checkout/getDefaultAddress");
-            console.log("==address=>",address)
+            let address=await this.$store.dispatch("checkout/getDefaultAddress"); 
             await this.$store.dispatch("checkout/getShipList",{
                 province:address.province,
                 city:address.city,

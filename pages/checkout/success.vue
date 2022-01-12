@@ -36,8 +36,7 @@ export default {
     },
     watch:{
         orderInfo:{
-            handler:function(newVal){
-                console.log("===orderInfo",newVal)
+            handler:function(newVal){ 
                 if(newVal.order_id && !newVal.order_sn){
                     this.$store.dispatch("order/detail",newVal.order_id)
                 }

@@ -1,25 +1,29 @@
 import axios from 'axios';
 import FormData from 'form-data';
-import S from '@/spx';
 
 
 const transformData = (config) => {
-   
-if(process.env.VUE_ENV=='client'){ 
-    console.log("$nuxt",$nuxt);
-}
 
-    let formData = new FormData(); 
-    // formData.append('site', process.env.site)
-    if($nuxt.$cookies.get('TOKEN')){
-        formData.append('token',$nuxt.$cookies.get('TOKEN'))
+    let formData = new FormData();
+    let token;
+
+    if (process.client) {
+        token = $nuxt.$cookies.get('TOKEN');
+        if (token) {
+            formData.append('token', token)
+        } 
+
+        if (config.data) {
+            Object.keys(config.data).forEach(key => {
+                formData.append(key, config.data[key])
+            })
+        }
+    } else {
+        const { app, req } = CreateAxios.content;
+        token = app.$cookies.get('TOKEN');
     }
-    if (config.data) {
-        Object.keys(config.data).forEach(key => {
-            formData.append(key, config.data[key])
-        })
-    } 
-    config.data = formData
+   
+    config.data = process.client?formData:{...config.data,token};
 
 }
 
@@ -31,25 +35,27 @@ class CreateAxios {
     }
 
     created() {
-        console.log('CreateAxios Class created......', process.env.baseUrl)
-      
+
         this.inst = axios.create();
         this.inst.defaults.timeout = 30 * 1000;
         this.inst.defaults.baseURL = process.env.baseUrl;
-        this.inst.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+        // this.inst.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 
         this.inst.interceptors.request.use((config) => {
-            transformData(config);
+            transformData(config); 
             return config
+        }, (err) => {
+            console.log('xxxreq:', err)
         })
         this.inst.interceptors.response.use(
-            (res) => { 
+            (res) => {
+                // console.log("===res===>",res)
                 if (res.status === 200 && res.data.code == 200) {
                     return res.data.data
                 }
             },
             (err) => {
-                console.log('xxxreq:', err) 
+                console.log('xxxres:', err)
             }
         )
         return this.inst;
@@ -69,5 +75,9 @@ class CreateAxios {
 }
 
 const req = CreateAxios.getInstance()
+
+export {
+    CreateAxios
+}
 
 export default req;

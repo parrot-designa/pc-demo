@@ -13,8 +13,7 @@ export default ({app}) => {
         } 
         if(to.path==='/pic'){
             app.store.commit('global/SET_GLOBAL_BREAD',{items:['首页','照片墙']})
-        } 
-        console.log("to===>",to)
+        }  
         app.store.commit('global/SET_GLOBAL_PATH',to.path);
         app.store.commit('global/SET_GLOBAL_QUERY',to.query);
     })

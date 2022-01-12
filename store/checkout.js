@@ -56,8 +56,7 @@ export const actions = {
         return res.data
     },
     async getPackList({commit},params){
-        const { data } = await getPackList(params); 
-        console.log("===getPackList===",data)
+        const { data } = await getPackList(params);  
         commit("SET_PACKLIST",data) 
         return data
     }

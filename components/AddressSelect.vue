@@ -93,8 +93,7 @@ export default {
   },
   watch: {
     initialCode: {
-      handler: async function (newVal,oldVal) {
-        console.log("===initialCode==>", newVal,oldVal);
+      handler: async function (newVal,oldVal) { 
         const hasChange=!oldVal || oldVal[2]!==newVal[2];
         if (newVal.length === 3 && hasChange) {
           const res = await this.getAllCity();

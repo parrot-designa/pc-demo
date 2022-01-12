@@ -79,8 +79,7 @@ export default {
     getCart: function () {
       this.$store.dispatch("cart/cartList");
     },
-    handleDelete(item){
-        console.log("==handleDelete==",item)
+    handleDelete(item){ 
         this.$store.dispatch("cart/deleteCart", { gid: item.gid,pid:item.pid });
     },
     handleClean(){

@@ -66,8 +66,7 @@ export default {
     },
     watch:{
         info:{
-            handler:function(newVal){
-                console.log("==>form newVal",newVal,this.canAdd)
+            handler:function(newVal){ 
                 this.form.consignee=newVal.consignee||"";
                 this.form.mobile=newVal.mobile||"";
                 this.form.email=newVal.email||"";

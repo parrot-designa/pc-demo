@@ -75,8 +75,7 @@ class Spx {
     }
 
     //设置地址
-    setAddressList(addressList){
-        console.log("===setAddressList==",addressList)
+    setAddressList(addressList){ 
         this.set(ADDRESS_KEY, JSON.stringify(addressList),true);
     }
 

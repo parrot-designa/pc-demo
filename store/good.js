@@ -26,8 +26,7 @@ export const mutations = {
 export const actions = {
 	// 此处为设置头部背景色
     async getGoodsList({commit}){ 
-        const goods=await getGoodsList(); 
-        console.log("===goods====>",goods);
+        const goods=await getGoodsList();  
         commit('SET_DATA',goods.data);
     },
     async getGoodDetail({commit},params){ 

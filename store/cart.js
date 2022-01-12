@@ -23,8 +23,7 @@ export const mutations = {
 export const actions = {
     // 此处为设置头部背景色
     async addCart({ commit }, params) {
-        const res = await addCart(params);
-        console.log("==res==", res)
+        const res = await addCart(params); 
         if (res.errcode === 0) {
             // this.$bvToast.toast(data.data, {
             //     autoHideDelay: 1000,
@@ -40,8 +39,7 @@ export const actions = {
     },
     async cartList({commit,dispatch},params){
         const res=await cartList(); 
-        const res_data=res.data.map((item,index)=>({...item,...item.product_info}))
-        console.log("==res_data==", res_data)  
+        const res_data=res.data.map((item,index)=>({...item,...item.product_info})) 
         await commit('SET_LIST',res_data);
         await dispatch('getTotal')
     },

@@ -28,7 +28,7 @@
             <b-col cols="12" md="6" class="pl-lg-10">
               <b-row class="mb-1">
                 <b-col>
-                  <a class="text-muted">Chrome Hearts</a>
+                  <a class="text-muted">{{basic.brand_name}}</a>
                 </b-col>
                 <b-col :auto="true">
                   <custom-rate />
@@ -36,75 +36,44 @@
                 </b-col>
               </b-row>
               <h5 class="mb-2">
-                Chrome hearts ㊣宗克罗心 拱形FK横幅连帽拉链卫衣
+               {{basic.goods_name}}
               </h5>
               <div class="mb-7">
                 <span class="ml-1 font-size-h5 font-weight-bolder text-primary">
-                  <font id="goods_amount">￥3680.0</font>
-                </span>
-                <span
-                  class="
-                    font-size-lg font-weight-bold
-                    text-gray-350 text-decoration-line-through
-                  "
-                  >￥6696.0</span
-                >
-                <span class="font-size-sm ml-1">(含税价)</span>
+                  <font id="goods_amount">￥{{more_spec?good_price:basic.product_price}}</font>
+                </span> 
               </div>
               <div class="form-group">
                 <div class="mb-5">
-                  <p class="text-gray-500">
-                    <strong class="text-body">尺寸帮助</strong>
-                    ：我们的女模特是身高163cm，体重47千克和穿着S
-                    <br />
-                    我们的男模特是身高178cm，体重75千克身穿着L
-                  </p>
-                  <p class="text-gray-500">
-                    <strong class="text-body">产地</strong>
-                    ：美国制造
-                  </p>
-                  <p class="text-gray-500">
-                    <strong class="text-body">商品描述</strong>
-                    ：美国制造
-                    <br />
-                    100％纯棉
-                  </p>
+                  <p class="text-gray-500" v-for="(item,index) in attr_common" :key="index">
+                    <strong class="text-body">{{item.attr_name}}：</strong>
+                    {{item.attr_value}}
+                  </p>  
                   <p class="text-gray-500">
                     <small>不支持7天无理由</small>
                     <br />
                     <small>收货后30天内真假问题负责到底</small>
                     <small>正品保障 假一赔三</small>
                   </p>
-                  <p class="text-gray-500">
-                    海外代购 预计11月20日至12月03日送达
+                  <p class="text-gray-500" v-if="basic.is_guonei==0">
+                    海外代购 预计{{basic.min_date}}至{{basic.max_date}}送达
                   </p>
                 </div>
               </div>
               <div class="form-group">
-                <goods-size />
-                <input type="hidden" name="spec_list" value="4" />
-                <p class="mb-8">
-                  <img
-                    src="	https://www.chhes.com/assets/img/icons/icon-ruler.svg"
-                    alt="..."
-                    class="img-fluid"
-                  />
-                  <a class="text-reset text-decoration-underline ml-3"
-                    >尺码表</a
-                  >
-                </p>
 
-                <div
-                  id="goodschima"
-                  class="modal fade"
-                  tabindex="-1"
-                  role="dialog"
-                  aria-hidden="true"
-                ></div>
+                <div v-if="more_spec">
+                  <GoodsAttr
+                    v-for="(item,index) in attr_spec"
+                    :key="index"
+                    :attrName="item.attr_name"
+                    :dataSource="item.attr_values"
+                  />
+                </div> 
 
                 <div class="form-row mb-7">
                   <div class="col-12 col-lg-auto">
-                    <CustomInputNumber className="mb-2" />
+                    <CustomInputNumber :initialValue="1" v-model="num" className="mb-2" />
                   </div>
                   <div class="col-12 col-lg"> 
                        <normal-button :block="true" @click="handleAddCart">
@@ -116,75 +85,7 @@
                       添加收藏  
                       </normal-button>
                   </div>
-                </div>
-                <p>
-                  <span class="text-gray-500">商品缺货?</span>
-                  <a
-                    class="text-reset text-decoration-underline"
-                    href="user-add_booking_1283.html"
-                    >点击提交缺货通知!</a
-                  >
-                </p>
-                <p class="mb-0">
-                  <span class="mr-4">分享到:</span>
-                  <a
-                    class="
-                      btn btn-xxs btn-circle btn-light
-                      font-size-xxxs
-                      text-gray-350
-                    "
-                    href="javascript:;"
-                    title="分享到新浪微博"
-                    target="_blank"
-                  >
-                    <i class="fab fa-weibo"></i>
-                  </a>
-                  <a
-                    class="
-                      btn btn-xxs btn-circle btn-light
-                      font-size-xxxs
-                      text-gray-350
-                    "
-                    href="javascript:;"
-                    title="分享到QQ空间"
-                    target="_blank"
-                  >
-                    <i class="fas fa-star"></i>
-                  </a>
-                  <a
-                    class="
-                      btn btn-xxs btn-circle btn-light
-                      font-size-xxxs
-                      text-gray-350
-                    "
-                    href="javascript:window.open('http://twitter.com/home?status='+encodeURIComponent(document.location.href)+' '+encodeURIComponent(document.title));void(0)"
-                    title="分享到Twitter"
-                  >
-                    <i class="fab fa-twitter"></i>
-                  </a>
-                  <a
-                    class="
-                      btn btn-xxs btn-circle btn-light
-                      font-size-xxxs
-                      text-gray-350
-                    "
-                    href="javascript:window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(document.location.href)+'&t='+encodeURIComponent(document.title));void(0)"
-                    title="分享到Facebook"
-                  >
-                    <i class="fab fa-facebook-f"></i>
-                  </a>
-                  <a
-                    class="
-                      btn btn-xxs btn-circle btn-light
-                      font-size-xxxs
-                      text-gray-350
-                    "
-                    href="javascript:window.open('http://www.google.com/bookmarks/mark?op=add&bkmk='+encodeURIComponent(document.location.href)+'&title='+encodeURIComponent(document.title));void(0)"
-                    title="分享到谷歌书签"
-                  >
-                    <i class="fab fa-google"></i>
-                  </a>
-                </p>
+                </div> 
               </div>
             </b-col>
           </b-row>
@@ -543,19 +444,10 @@ export default {
   data() {
     return {
       tag: "热度160",
-      headPhoto:
-        "https://www.chhes.com/images/202110/goods_img/1283_P_1633668906273.jpg",
-      viewList: [
-        {
-          src: "https://www.chhes.com/images/202110/goods_img/1283_P_1633668906273.jpg",
-        },
-        {
-          src: "https://www.chhes.com/images/202110/goods_img/1283_P_1633668906200.jpg",
-        },
-        {
-          src: "https://www.chhes.com/images/202110/goods_img/1283_P_1633668906743.jpg",
-        },
-      ],
+      headPhoto:"",
+      viewList: [],
+      basic:{},
+      product_info:[],
       tabList: [
         { label: "商品详情", value: "detail" },
         { label: "商品评价(0)", value: "evaluate" },
@@ -565,18 +457,39 @@ export default {
       tabIndex: 0,
       currentSelectIndex: 0,
       goodId: 0,
-      info:{}
+      info:{},
+      num:1,
+      //属性
+      goods_attr:[]
     };
   }, 
+  watch:{
+    info:{
+      handler(val){
+         
+      },
+      immediate:true
+    }
+  },
+  computed:{
+   
+  },
   async asyncData ({ app, route, req, params, query }) { 
     const { id:goods_id } = route.params 
  
-    const info = await app.$api.good.detail({goods_id});
+    const { data:info } = await app.$api.good.detail({goods_id}); 
 
-    console.log("info==>",info)
+    const default_goods_attr=info.attr_spec.map(item=>item.attr_values[0].goods_attr_id)
 
     return {
       info,
+      headPhoto:info.pics[0].middle_url,
+      viewList:info.pics.map(item=>({src:item.middle_url})),
+      basic:info.basic,
+      attr_common:info.attr_common,
+      attr_spec:info.attr_spec,
+      product_info:info.basic.product_info, 
+      goods_attr:default_goods_attr
       // tdk_data: info.tdk_data,
       // goodsDesc: Array.isArray(info.intro) ? info.intro : resolveLazyLoadImg(info.intro)
     }
@@ -589,6 +502,16 @@ export default {
     ...mapState("good", {
       detail: (state) => state.detail,
     }),
+    //多规格
+    more_spec(){
+      return this.basic.is_spec==1
+    },
+    //多规格价格
+    good_price(){ 
+      const mapId=this.goods_attr.join(',');
+   console.log("====this.goods_attr",mapId,this.product_info)
+      return 1;
+    }
   }, 
   methods: {
     switchPhoto(item, i) {
@@ -596,14 +519,19 @@ export default {
       this.currentSelectIndex = i;
     }, 
     handleAddCart(){
-      if(!S.getAuthToken()){
+      debugger;
+      if(!this.$nuxt.$cookies.get('TOKEN')){
         this.$router.push({path:'/login'})
         return this.$bvToast.toast('请先登陆', {
           autoHideDelay: 1000,
           title: "错误提示",
         });
       }else{
-        this.$store.dispatch("cart/addCart", { gid: this.goodId,num:1,pid:45 });
+        this.$store.dispatch("cart/addCart", { 
+          gid: this.basic.goods_id,
+          num: this.num,
+          pid: this.basic.pid  
+        });
       }
       
     }

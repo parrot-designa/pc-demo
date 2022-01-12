@@ -9,7 +9,9 @@ export const state = () => ({
 export const mutations = {
 	// 此处为设置头部背景色
     SET_INFO(state, info) {   
-        localStorage.setItem('info',JSON.stringify(info))
+        if(process.env.VUE_ENV=='client'){ 
+            localStorage.setItem('info',JSON.stringify(info))
+        }
         state.info=info;
     },
     SET_TOKEN(state,token){

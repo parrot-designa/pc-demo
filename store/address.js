@@ -36,8 +36,7 @@ export const actions = {
         } 
     },
     async delete({ commit,dispatch }, address_id) {
-        const data=await deleteAddress({address_id});
-        console.log("data",data)
+        const data=await deleteAddress({address_id}); 
         if(data.errcode==0){
             return true
         }

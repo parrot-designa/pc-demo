@@ -41,8 +41,7 @@ export default {
     }
   },
   methods:{
-    handleInput:function(val){
-      console.log("===handleInput==",val)
+    handleInput:function(val){ 
     },
     handleReduce:function(){
       if(this.value<=1) return ;

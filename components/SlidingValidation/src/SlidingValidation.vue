@@ -128,9 +128,7 @@ export default {
         this.loading = false
         onload()
       }
-      img.onerror = e => {
-        console.log('验证码图加载失败')
-        console.log(e)
+      img.onerror = e => { 
       }
       return img
     },

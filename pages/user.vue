@@ -79,8 +79,7 @@ export default {
       ],
     };
   },
-  asyncData(context) {
-    console.log("--asyncData--", context);
+  asyncData(context) { 
   },
   computed: {
     ...mapState("global", {
@@ -88,8 +87,7 @@ export default {
     }),
   },
   methods:{
-      activePath({name}){
-          console.log("--name--",name,this.path)
+      activePath({name}){ 
           if(this.path==='/user' && name==='用户首页'){
               return true;
           }
