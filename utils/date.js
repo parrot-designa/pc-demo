@@ -31,9 +31,10 @@ export function dateUtil(params){
     }
 }
 
+//通过年份生成前后50年
 export function generateYear(year){
-    const yearFrontArray=bubbleSort(new Array(10).fill('').map((item,index)=>Number(year)-(index+1)))
-    const yearBehindArray=new Array(10).fill('').map((item,index)=>Number(year)+index)
+    const yearFrontArray=bubbleSort(new Array(50).fill('').map((item,index)=>Number(year)-(index+1)))
+    const yearBehindArray=new Array(50).fill('').map((item,index)=>Number(year)+index)
     const yearArray=yearFrontArray.concat([year]).concat(yearBehindArray);
-    return yearArray.map(item=>({option:item,value:item}))
+    return yearArray.map(item=>({name:item,value:item}))
 }

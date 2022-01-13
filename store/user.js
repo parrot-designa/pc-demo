@@ -26,9 +26,8 @@ export const actions = {
         const { data }=await getUserInfo();  
         if(data){
             commit ('SET_INFO',data);
-        }
-        
-    }, 
+        } 
+    }
 };
 
 export default {

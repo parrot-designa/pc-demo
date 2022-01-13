@@ -31,7 +31,10 @@ export default {
     '@/plugins/i18n.js',
     '@/plugins/route.js',
     "@/plugins/element-ui.js",
-    "@/plugins/axios.js"
+    "@/plugins/axios.js",
+    {
+      src:'@/plugins/store.js',ssr:false
+    }
   ],
   generate: {
     // 这里可能是指定路由

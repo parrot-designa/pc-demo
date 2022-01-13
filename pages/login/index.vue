@@ -152,6 +152,7 @@ import CustomButton from "~/components/CustomButton.vue";
 import axios from "axios";
 import CustomSlidingValidation from "~/components/CustomSlidingValidation.vue";
 import { phoneReg } from "@/utils"; 
+import api from '@/server'
 let axiosPrefixCls = "https://baba.ltd/";
 
 export default {
@@ -181,31 +182,27 @@ export default {
   },
   methods: {
     async onSubmitLogin(evt) {
-      evt.preventDefault();
-      const { password, user_name } = this.loginForm;
-
-      let formData = new FormData();
-      formData.append("user_name", user_name);
-      formData.append("password", password);
-      //const data=await login();
-      const data = await axios.post(
-        `${axiosPrefixCls}api/Public/login`,
-        formData
-      );
-      if (data.data.code == 200) {
-        this.$bvToast.toast(`登陆成功`, {
-          autoHideDelay: 1000,
-          title: "成功提示",
-        });
-        this.$router.push({path:'/login/success'})
-        this.$store.commit('user/SET_TOKEN',data.data.data.token);
-        this.$store.commit('user/SET_INFO',data.data.data);
-      } else {
-        this.$bvToast.toast(data.data.message, {
-          autoHideDelay: 1000,
-          title: "错误提示",
-        });
-      } 
+        debugger;
+      evt.preventDefault(); 
+      debugger;
+      const data = await api.user.userLogin(
+        this.loginForm
+      ) 
+      debugger;
+      // if (data.code == 200) {
+      //   this.$bvToast.toast(`登陆成功`, {
+      //     autoHideDelay: 1000,
+      //     title: "成功提示",
+      //   });
+      //   this.$router.push({path:'/login/success'})
+      //   this.$store.commit('user/SET_TOKEN',data.data.data.token);
+      //   this.$store.commit('user/SET_INFO',data.data.data);
+      // } else {
+      //   this.$bvToast.toast(data.data.message, {
+      //     autoHideDelay: 1000,
+      //     title: "错误提示",
+      //   });
+      // } 
     },
     onResetLogin() {},
     async onSubmitRegister(evt) {

@@ -47,7 +47,7 @@ export default {
   data() {
     return {
       menusData: [
-        { name: "用户首页", path: "/", icon: "icon-shouye" },
+        { name: "用户首页", path: "", icon: "icon-shouye" },
         {
           name: "我的订单",
           path: "/myorder",
@@ -120,7 +120,7 @@ export default {
           }
           return false;
       },
-      handleNavigation({path}){
+      handleNavigation({path}){ 
           this.$router.push({
               path:`/user${path}`
           })
