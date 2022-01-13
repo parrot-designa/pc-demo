@@ -1,14 +1,12 @@
 
-import { getGoodsInfo,getShipList,getPaytypeList,getPackList } from '@/server/checkout'; 
+import { getGoodsInfo,getPaytypeList,getPackList } from '@/server/checkout'; 
 import { getAddressList } from '@/server/address'; 
 import { saveAddress } from '@/server/order'; 
 
 export const state = () => ({
     goodInfo:{},
-    currentAddress:{},
-    shipList:[],
-    payTypeList:[],
-    packList:[]
+    currentAddress:{}, 
+    payTypeList:[]
 });
 
 export const mutations = { 
@@ -17,16 +15,10 @@ export const mutations = {
     },
     SET_ADDRESS(state,current){
         state.currentAddress=current;
-    },
-    SET_SHIP(state,list){
-        state.shipList=list;
-    },
+    }, 
     SET_PAYTYPE(state,list){
         state.payTypeList=list;
-    },
-    SET_PACKLIST(state,list){
-        state.packList=list;
-    },
+    }, 
 };
 
 export const actions = {
@@ -42,24 +34,13 @@ export const actions = {
         await saveAddress({address_id:current.id});
         commit("SET_ADDRESS",current)
         return current;
-    },
-    async getShipList({commit},params){
-        const res = await getShipList({country:1,...params});
-        const data=res.data.map(item=>({...item,label:item.shipping_name,text:item.shipping_desc}))
-        commit("SET_SHIP",data) 
-        return res.data
-    },
+    }, 
     async getPaytypeList({commit},params){
         const res = await getPaytypeList();
         const data=res.data.map(item=>({...item,label:item.name,text:item.shipping_desc}))
         commit("SET_PAYTYPE",data) 
         return res.data
-    },
-    async getPackList({commit},params){
-        const { data } = await getPackList(params);  
-        commit("SET_PACKLIST",data) 
-        return data
-    }
+    }, 
 };
 
 export default {

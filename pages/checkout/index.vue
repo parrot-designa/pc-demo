@@ -45,12 +45,16 @@ import CheckoutTable2 from './comps/table2.vue'
 import CheckoutTextarea from './comps/textarea.vue'
 import GoodData from './comps/goodData.vue'
 import { savePayType,saveShip } from '@/server/order'
+import { getGoodsInfo,getShipList,getPaytypeList,getPackList } from '@/server/checkout';
 
 export default {
     data(){
         return {
             shipValue:'',
-            payValue:''
+            payValue:'',
+            shipList:[],
+            goodInfo:{},
+            packList:[]
         }
     },  
     components:{
@@ -62,11 +66,8 @@ export default {
     },
     computed:{
         ...mapState('checkout',{
-            currentAddress:state=>state.currentAddress,
-            shipList:state=>state.shipList,
-            payTypeList:state=>state.payTypeList,
-            packList:state=>state.packList,
-            goodInfo:state=>state.goodInfo
+            currentAddress:state=>state.currentAddress, 
+            payTypeList:state=>state.payTypeList 
         })
     },
     mounted:function(){
@@ -93,17 +94,20 @@ export default {
     methods:{
         getDefaultAddress:async function(){
             let address=await this.$store.dispatch("checkout/getDefaultAddress"); 
-            await this.$store.dispatch("checkout/getShipList",{
+            const res = await getShipList({
+                country:1,
                 province:address.province,
                 city:address.city,
                 district:address.district
             });
+            this.shipList=res.data.map(item=>({...item,label:item.shipping_name,text:item.shipping_desc})) 
         },
-        getGoodInfo:function(){
-            this.$store.dispatch("checkout/getGoodsInfo").then(res=>{
-                const goods_id_str=res.map(item=>item.gid).join(",");
-                this.$store.dispatch("checkout/getPackList",{goods_id_str})
-            })
+        getGoodInfo:async function(){
+            const res = await getGoodsInfo();
+            this.goodInfo=res.data.map(item=>({...item,...item.product_info}));
+            const goods_id_str=this.goodInfo.map(item=>item.gid).join(",");
+            const { data } = await getPackList({goods_id_str});  
+            this.packList=data; 
         },
         handleEditAddress:function(){
             this.$router.push("/address")

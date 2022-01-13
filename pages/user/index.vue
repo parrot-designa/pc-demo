@@ -4,7 +4,7 @@
       <b-row>
         <b-col cols="12" md="4" lg="3" xl="2">
           <CustomAvatar
-            imgSrc="https://www.chhes.com/myfile/data/1622614086124543.jpg"
+            :imgSrc="useInfo.head"
           />
         </b-col>
         <b-col cols="12" md="8" lg="9" xl="10">
@@ -73,5 +73,10 @@ export default {
       useInfo: (state) => state.info,
     }),
   },
+  watch:{
+    useInfo:function(val){
+      console.log("====useInfo===>",val)
+    }
+  }
 };
 </script>

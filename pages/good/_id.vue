@@ -436,7 +436,7 @@
 
 <script>
 import { mapState } from "vuex";
-import S from '@/spx';
+import { addCart  } from '@/server/cart';
 export default {
   data() {
     return {
@@ -524,7 +524,7 @@ export default {
       this.headPhoto = item.src;
       this.currentSelectIndex = i;
     }, 
-    handleAddCart(){ 
+    async handleAddCart(){ 
       if(!this.$nuxt.$cookies.get('TOKEN')){
         this.$router.push({path:'/login'})
         return this.$bvToast.toast('请先登陆', {
@@ -532,11 +532,15 @@ export default {
           title: "错误提示",
         });
       }else{
-        this.$store.dispatch("cart/addCart", { 
+        const res=await addCart({
           gid: this.basic.goods_id,
           num: this.num,
-          pid: this.basic.pid  
-        });
+          pid: this.more_spec?this.pid:this.basic.pid  
+        }); 
+        if (res.errcode === 0) {  
+          if(this.$router.currentRoute.path==='/cart') return 
+          this.$router.push({path:'/cart'})  
+        }
       }
       
     }

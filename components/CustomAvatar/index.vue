@@ -1,7 +1,10 @@
 <template>
   <div class="custom-avatar custom-avatar-xxl" :class="classNameString">
     <span v-if="type === 'image'" class="card-img avatar-title rounded-circle">
-      <div class="btn btn-xxs btn-block btn-dark card-btn">修改头像</div>
+      <div  @click="handleEdit">
+        <div class="btn btn-xxs btn-block btn-dark card-btn">修改头像</div>
+         <input type="file" name="filename" hidden ref="file" />
+      </div>
       <img :src="imgSrc" class="avatar-img rounded-circle" />
     </span>
   </div>
@@ -23,6 +26,12 @@ export default {
       default: "",
     },
   },
+  methods:{
+    handleEdit:function(){
+      console.log("==this.$refs.file==",this.$refs.file)
+      this.$refs.file.click();
+    }
+  }
 };
 </script>
 
