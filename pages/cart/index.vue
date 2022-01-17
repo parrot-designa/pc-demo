@@ -15,7 +15,7 @@
                 :name="item.product_name"  
                 :price="item.product_price"
                 :src="item.product_thumb"
-                :initialNum="item.num"
+                :num="item.num"
                 :good_id="item.gid"
                 :pid="item.pid"
                 @delete="handleDelete(item)"
@@ -60,24 +60,29 @@
 </template>
 
 <script>
-import CartItem from "../comps/CartItem.vue";
+import CartItem from "./comps/CartItem.vue";
 import { mapState } from "vuex";
 export default {
   components: {
     CartItem,
+  },
+  data(){
+    return {
+      list:[]
+    }
   },
   mounted: function () {
     this.getCart();
   },
   computed: {
     ...mapState("cart", {
-      list: (state) => state.list,
       total: (state) => state.total,
     }),
   },
   methods: {
-    getCart: function () {
-      this.$store.dispatch("cart/cartList");
+    getCart: async function () {
+      const res=await this.$api.cart.cartList();
+      this.list=res.data.map((item,index)=>({...item,...item.product_info})); 
     },
     handleDelete(item){ 
         this.$store.dispatch("cart/deleteCart", { gid: item.gid,pid:item.pid });

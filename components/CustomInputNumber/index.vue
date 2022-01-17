@@ -1,7 +1,7 @@
 <template>
   <div class="form-control form-control-sm number-goods" :class="className">
-    <input type="number" class="number-goods i" v-model="value" @input="handleInput" :min="min" />
-    <a class="number-goods r" @click="()=>value++">+</a>
+    <input type="number" class="number-goods i" v-model="val" :min="min" />
+    <a class="number-goods r" @click="()=>val++">+</a>
     <a class="number-goods l" @click="handleReduce">-</a>
   </div>
 </template>
@@ -16,36 +16,40 @@ export default {
     min:{
       type:Number,
       default:1
-    },
-    initialValue:{
-      type:Number,
+    }, 
+    value:{
+      type:Number 
     }
   },
   data(){
     return {
-      value:1
+      val:1,
+      time:0
     }
   },
   watch:{
+    val:{
+      handler:function(newVal,oldVal){ 
+        console.log("===val===>",newVal)
+        this.$emit('input',newVal,oldVal);
+      }
+    }, 
     value:{
-      handler:function(newVal){ 
-        this.$emit('input',newVal);
+      handler:function(newval){  
+        if(this.time===0){
+          this.val= newval;
+          this.time++;
+        }
       },
       immediate:true
-    },
-    initialValue:{
-      handler:function(newVal){ 
-        this.value=newVal;
-      },
-      immediate:true
-    }
+    } 
   },
   methods:{
     handleInput:function(val){ 
     },
     handleReduce:function(){
-      if(this.value<=1) return ;
-      this.value--;
+      if(this.val<=1) return ;
+      this.val--;
     }
   }
 };

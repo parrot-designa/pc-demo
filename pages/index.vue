@@ -127,7 +127,7 @@
 <script>
 import HomePic from "./comps/HomePic.vue";
 import { getBanners } from "@/server/home";
-import { mapState, mapMutations } from "vuex";
+import { mapState } from "vuex";
 import { TabContent, TabPane } from "@/components/CustomTabContent";
 import phonealbum from "@parrotjs/vue-photoalbum";
 import "@parrotjs/vue-photoalbum/dist/vue-photoalbum.css";

@@ -5,7 +5,7 @@
         <b-col cols="12" md="6">
           <b-card class="card-lg mb-10 mb-md-0">
             <h6 class="mb-7">{{ $t("userLogin.loginText") }}</h6>
-            <b-form @submit="onSubmitLogin" @reset="onResetLogin">
+            <div  >
               <b-row>
                 <b-col cols="12">
                   <b-form-group label="">
@@ -40,17 +40,18 @@
                 <b-col cols="12" class="col-md-auto">
                   <b-form-group label="">
                     <a class="font-size-sm text-reset" href="#"
-                      >忘记用户名密码?</a
+                      >忘记用户名码?</a
                     >
                   </b-form-group>
                 </b-col>
                 <b-col cols="12"></b-col>
               </b-row>
 
-              <custom-button type="submit" :dark="true" size="sm"
-                >登陆</custom-button
+              <normal-button  :dark="true" size="sm"
+              @click="onSubmitLogin"
+                >登陆</normal-button
               >
-            </b-form>
+            </div>
           </b-card>
         </b-col>
         <b-col cols="12" md="6">
@@ -152,7 +153,6 @@ import CustomButton from "~/components/CustomButton.vue";
 import axios from "axios";
 import CustomSlidingValidation from "~/components/CustomSlidingValidation.vue";
 import { phoneReg } from "@/utils"; 
-import api from '@/server'
 let axiosPrefixCls = "https://baba.ltd/";
 
 export default {
@@ -181,28 +181,20 @@ export default {
     },
   },
   methods: {
-    async onSubmitLogin(evt) {
-        debugger;
-      evt.preventDefault(); 
+    async onSubmitLogin(evt) { 
       debugger;
-      const data = await api.user.userLogin(
-        this.loginForm
-      ) 
+      const data = await this.$api.user.userLogin(this.loginForm);
       debugger;
-      // if (data.code == 200) {
-      //   this.$bvToast.toast(`登陆成功`, {
-      //     autoHideDelay: 1000,
-      //     title: "成功提示",
-      //   });
-      //   this.$router.push({path:'/login/success'})
-      //   this.$store.commit('user/SET_TOKEN',data.data.data.token);
-      //   this.$store.commit('user/SET_INFO',data.data.data);
-      // } else {
-      //   this.$bvToast.toast(data.data.message, {
-      //     autoHideDelay: 1000,
-      //     title: "错误提示",
-      //   });
-      // } 
+      if (data.token) {
+        this.$bvToast.toast(`登陆成功`, {
+          autoHideDelay: 1000,
+          title: "成功提示",
+        });
+        this.$router.push({path:'/login/success'})
+        this.$store.commit('user/SET_TOKEN',data.token);
+        this.$store.commit('user/SET_INFO',data); 
+      }  
+        
     },
     onResetLogin() {},
     async onSubmitRegister(evt) {
@@ -248,7 +240,7 @@ export default {
           autoHideDelay: 1000,
           title: "错误提示",
         });
-      } 
+      }
     },
     onResetRegister() {},
     //发送验证码
@@ -261,7 +253,7 @@ export default {
       const data = await axios.post(
         `${axiosPrefixCls}api/Public/reg_sms`,
         formData
-      ); 
+      );
       if (data.data.code == 200) {
         this.countdown = 60;
         let timeout = setInterval(() => {

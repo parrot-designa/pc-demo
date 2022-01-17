@@ -1,5 +1,5 @@
 
-import { addCart, cartList ,editCart,delCartOne,clearCart, getTotalCart,shopCartBuy } from '@/server/cart';
+import { addCart ,editCart,delCartOne,clearCart, getTotalCart,shopCartBuy } from '@/server/cart';
 
 export const state = () => ({
     detail: {},
@@ -36,28 +36,18 @@ export const actions = {
             router.push({path:'/cart'}) 
             
         }
-    },
-    async cartList({commit,dispatch},params){
-        const res=await cartList(); 
-        const res_data=res.data.map((item,index)=>({...item,...item.product_info})) 
-        await commit('SET_LIST',res_data);
-        await dispatch('getTotal')
-    },
+    }, 
     async editCart({commit,dispatch},params){
         const res=await editCart(params); 
         return res.errcode===0
     },
     async deleteCart({commit,dispatch},params){
         const res=await delCartOne(params);  
-        if (res.errcode === 0) {    
-            await dispatch("cartList")
-        }
+       
     },
     async cleanCart({commit,dispatch},params){
         const res=await clearCart(params);  
-        if (res.errcode === 0) {    
-            await dispatch("cartList")
-        }
+         
     },
     async getTotal({commit,dispatch},params){
         const res=await getTotalCart(params);  
