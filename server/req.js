@@ -34,28 +34,26 @@ class CreateAxios {
         return this.inst;
     }
 
-    created() {
-
+    created() { 
         this.inst = axios.create();
         this.inst.defaults.timeout = 30 * 1000;
-        this.inst.defaults.baseURL = process.env.baseUrl;
-        // this.inst.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
-
+        this.inst.defaults.baseURL = process.env.baseUrl; 
         this.inst.interceptors.request.use((config) => {
             transformData(config); 
             return config
         }, (err) => {
-            console.log('xxxreq:', err)
+            // $nuxt.$toast.error('服务器开小差啦~~')
         })
         this.inst.interceptors.response.use(
-            (res) => {
-                // console.log("===res===>",res)
+            (res) => { 
                 if (res.status === 200 && res.data.code == 200) {
                     return res.data.data
+                }else{
+                    $nuxt.$toast.error(res.data.message)
                 }
             },
             (err) => {
-                console.log('xxxres:', err)
+                // $nuxt.$toast.error('服务器开小差啦~~')
             }
         )
         return this.inst;

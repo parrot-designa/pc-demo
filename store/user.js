@@ -11,6 +11,7 @@ export const mutations = {
     SET_INFO(state, info) { 
         state.info = info;
     },
+    //设置token
     SET_TOKEN(state, token) {
         this.$cookies.set('TOKEN', token);
         state.token = token;

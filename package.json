@@ -9,6 +9,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@nuxtjs/toast": "^3.3.1",
     "@parrotjs/vue-photoalbum": "^2.0.0",
     "@parrotjs/vue-waterfall": "^7.0.0",
     "axios": "^0.23.0",

@@ -1,7 +1,7 @@
 import request from './req';
 
 //用户登录
-export function userLogin(params){
+export function userLogin(params){ 
     return request.post('/api/Public/login',params)
 }
 

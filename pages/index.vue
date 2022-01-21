@@ -62,7 +62,7 @@
                   v-for="(item, index) in goodList[activeTabValue]"
                   :key="index"
                 >
-                  <CustomGoodItem
+                  <GoodItem
                     :frontSrc="item.img.middle_url"
                     :backSrc="item.img.thumb_url"
                     :goodName="item.goods_name"

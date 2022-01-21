@@ -5,7 +5,7 @@
     <b-container>
       <b-row class="pt-8 m-3">
         <b-col :cols="6" :lg="4" v-for="(item,index) in dataSource" :key="index">
-          <CustomGoodItem
+          <GoodItem
             class="mb-7"
             :backSrc="item.goods_thumb"
             :frontSrc="item.goods_thumb"

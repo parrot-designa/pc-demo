@@ -51,8 +51,13 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
-    'cookie-universal-nuxt'
+    'cookie-universal-nuxt',
+    '@nuxtjs/toast'
   ], 
+  toast: {// toast模块的配置
+    position: 'top-center', 
+    duration: 2000
+  },
   env: {
     baseUrl: env[process.env.NODE_ENV].BASE_API,
     site: env[process.env.NODE_ENV].SITE,

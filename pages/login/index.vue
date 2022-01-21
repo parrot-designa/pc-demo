@@ -181,18 +181,13 @@ export default {
     },
   },
   methods: {
-    async onSubmitLogin(evt) { 
-      debugger;
-      const data = await this.$api.user.userLogin(this.loginForm);
-      debugger;
-      if (data.token) {
-        this.$bvToast.toast(`登陆成功`, {
-          autoHideDelay: 1000,
-          title: "成功提示",
-        });
+    async onSubmitLogin(evt) {  
+      const data = await this.$api.user.userLogin(this.loginForm); 
+      if (data?.token) {
+        this.$toast.success('登陆成功~~')
         this.$router.push({path:'/login/success'})
         this.$store.commit('user/SET_TOKEN',data.token);
-        this.$store.commit('user/SET_INFO',data); 
+        this.$store.dispatch('user/getInfo'); 
       }  
         
     },
