@@ -8,51 +8,74 @@
       </b-row>
       <b-row>
         <b-col :cols="12" :md="7">
-          <ul class="list-group list-group-lg list-group-flush-x mb-6" v-if="list.length">
-            <CartItem 
-                v-for="(item,index) in list" 
-                :key="index" 
-                :name="item.product_name"  
-                :price="item.product_price"
-                :src="item.product_thumb"
-                :num="item.num"
-                :good_id="item.gid"
-                :pid="item.pid"
-                @delete="handleDelete(item)"
-                @editSuccess="handleEditSuccess"
+          <ul
+            class="list-group list-group-lg list-group-flush-x mb-6"
+            v-if="list.length"
+          >
+            <CartItem
+              v-for="(item, index) in list"
+              :key="index"
+              :name="item.product_name"
+              :price="item.product_price"
+              :src="item.product_thumb"
+              :num="item.num"
+              :gid="item.gid"
+              :pid="item.pid"
+              @onDelete="handleDelete"
+              @onEdit="handleEdit"
             />
           </ul>
           <div v-else>
-              <NormalButton @click="$router.push({path:'/'})">快去逛逛吧～</NormalButton>
+            <NormalButton @click="$router.push({ path: '/' })"
+              >快去逛逛吧～</NormalButton
+            >
           </div>
           <div
             class="row align-items-end justify-content-between mb-10 mb-md-0"
           >
             <div cols="12" md="auto">
-              <NormalButton :dark="false" @click="handleClean"> 清空购物车 </NormalButton>
-              <NormalButton  @click="getCart"> 更新购物袋 </NormalButton>
+              <NormalButton :dark="false" @click="handleClean">
+                清空购物车
+              </NormalButton>
+              <NormalButton @click="getCart"> 更新购物袋 </NormalButton>
             </div>
           </div>
         </b-col>
         <b-col :cols="12" :md="5" :lg="4">
-            <div class="card mb-7 bg-light">
-                <div class="card-body">
-                    <ul class="list-group list-group-sm list-group-flush-y list-group-flush-x">
-                        <li class="list-group-item d-flex">
-                            <span>小计</span>
-                            <span class="ml-auto font-size-sm">¥{{total.total_price}}</span>
-                        </li>
-                        <li class="list-group-item d-flex font-size-lg font-weight-bold">
-                            <span>总计</span>
-                            <span class="ml-auto font-size-sm">¥{{total.total_price}}</span>
-                        </li>
-                        <li class="list-group-item font-size-sm text-center text-gray-500"></li>
-                    </ul>
-                </div>
+          <div class="card mb-7 bg-light">
+            <div class="card-body">
+              <ul
+                class="
+                  list-group list-group-sm list-group-flush-y list-group-flush-x
+                "
+              >
+                <li class="list-group-item d-flex">
+                  <span>小计</span>
+                  <span class="ml-auto font-size-sm"
+                    >¥{{ total.total_price }}</span
+                  >
+                </li>
+                <li
+                  class="list-group-item d-flex font-size-lg font-weight-bold"
+                >
+                  <span>总计</span>
+                  <span class="ml-auto font-size-sm"
+                    >¥{{ total.total_price }}</span
+                  >
+                </li>
+                <li
+                  class="list-group-item font-size-sm text-center text-gray-500"
+                ></li>
+              </ul>
             </div>
-            
-            <NormalButton :block="true" @click="handleCheckout">去结算</NormalButton>
-            <NormalButton @click="$router.push({path:'/'})">继续购物</NormalButton>
+          </div>
+
+          <NormalButton :block="true" @click="handleCheckout"
+            >去结算</NormalButton
+          >
+          <NormalButton @click="$router.push({ path: '/' })"
+            >继续购物</NormalButton
+          >
         </b-col>
       </b-row>
     </b-container>
@@ -61,48 +84,55 @@
 
 <script>
 import CartItem from "./comps/CartItem.vue";
-import { mapState } from "vuex";
 export default {
   components: {
     CartItem,
   },
-  data(){
+  data() {
     return {
-      list:[]
-    }
+      list: [],
+      total: {
+        totalPrice: 0,
+      },
+    };
   },
   mounted: function () {
     this.getCart();
+    this.getTotal();
   },
-  computed: {
-    ...mapState("cart", {
-      total: (state) => state.total,
-    }),
-  },
+  computed: {},
   methods: {
     getCart: async function () {
-      const res=await this.$api.cart.cartList();
-      this.list=res.data.map((item,index)=>({...item,...item.product_info})); 
+      const res = await this.$api.cart.list();
+      this.list = res.data.map((item, index) => ({
+        ...item,
+        ...item.product_info,
+      }));
     },
-    handleDelete(item){ 
-        this.$store.dispatch("cart/deleteCart", { gid: item.gid,pid:item.pid });
+    handleDelete: async function (params) {
+      const res = await this.$api.cart.deleteItem(params);
+      if (res.errcode === 0) {
+        this.getCart();
+      }
     },
-    handleClean(){
-      this.$store.dispatch("cart/cleanCart");
+    handleClean: async function () {
+      await this.$api.cart.clean();
     },
-    getTotal(){
-      this.$store.dispatch("cart/getTotal");
+    getTotal: async function () {
+      await this.$api.cart.total();
     },
-    handleEditSuccess(){
-      this.getTotal()
+    handleEdit: async function (params) {
+      await this.$api.cart.edit(params);
     },
-    handleCheckout(){
-      this.$store.dispatch("cart/shopCartBuy").then(res=>{
-        if(res){
-          this.$router.push("/checkout")
-        }
-      });
-    }
+    handleCheckout: async function () {
+      if(this.list.length==0){
+        return this.$toast.show('当前购物车无商品～')
+      }
+      const res = await this.$api.cart.shopCartBuy();
+      if (res.errcode === 0) {
+        this.$router.push("/checkout");
+      }
+    },
   },
 };
 </script>

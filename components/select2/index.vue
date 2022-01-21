@@ -9,6 +9,7 @@ export default {
     props:[
       'options','initialValue'
     ],
+    name:'select2',
     data(){
       return {
         value:''

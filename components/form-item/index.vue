@@ -10,6 +10,7 @@
 
 <script>
 export default {
+    name:'FormItem',
     props:{
         title:{
             type:String

@@ -1,9 +1,6 @@
-import global from './global';
-import home from './home';
-import good from './good';
+import global from './global';  
 import user from './user';
-import address from './address';
-import cart from './cart';
+import address from './address'; 
 import order from './order';
 
 export const state = () => ({
@@ -27,11 +24,8 @@ export const actions={
 }
 
 export const modules={
-    global,
-    home,
-    good,
-    user,
-    cart,
+    global,  
+    user, 
     address,
     order
 }

@@ -2,41 +2,40 @@
   <b-row :class="[classnames]">
     <b-col cols="12" md="4">
       <div class="form-group mb-md-0">
-        <custom-select-2
+        <select-2
           :options="level1Data"
           @change="level1Change"
           :initialValue="level1Value"
-        ></custom-select-2>
+        ></select-2>
       </div>
     </b-col>
     <b-col cols="12" md="4">
       <div class="form-group mb-md-0">
-        <custom-select-2
+        <select2
           :options="level2Data"
           @change="level2Change"
           :initialValue="level2Value"
-        ></custom-select-2>
+        ></select2>
       </div>
     </b-col>
     <b-col cols="12" md="4">
       <div class="form-group mb-md-0">
-        <custom-select-2
+        <select2
           :options="level3Data"
           @change="level3Change"
           :initialValue="level3Value"
-        ></custom-select-2>
+        ></select2>
       </div>
     </b-col>
   </b-row>
 </template>
 
-<script>
-import CustomSelect2 from "./CustomSelect2.vue";
+<script> 
 import S from "@/spx";
 
-export default {
-  components: { CustomSelect2 },
+export default { 
   props: ["classnames", "initialCode"],
+  name:'AddressSelect',
   data() {
     return {
       level1Data: [],
@@ -77,11 +76,7 @@ export default {
       ]);
     },
     getAllCity: async function () {
-      let addressList = S.getAddressList();
-      if (!addressList) {
-        const data = await this.$store.dispatch("address/getAllList");
-        addressList = [...data];
-      }
+      let addressList = S.getAddressList(); 
       this.allData = addressList;
       this.level1Data = addressList.map((item) => ({
         ...item,

@@ -4,7 +4,7 @@
             <b-row>
                 <b-col cols="12">
                     <ol class='custombreadcrumb mb-0 font-size-xs text-gray-400'> 
-                        <li @click="handleClick()">{{items[0]}}</li>
+                        <li @click="handleClick()">{{fistItem}}</li>
                         <li v-for="(item,index) in restItems" :key="index+1">
                             <i class='iconfont icon-youjiantou1 mx-1 font-size-xxs'></i>{{item}}
                         </li> 
@@ -24,7 +24,7 @@ export default {
             return this.items.slice(1);
         },
         fistItem(){
-            return '首页'
+            return this.items?.slice(0,1)[0];
         }
     },
     methods:{

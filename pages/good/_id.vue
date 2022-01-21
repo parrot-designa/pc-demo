@@ -6,7 +6,7 @@
           <b-row>
             <b-col cols="12" md="6">
               <b-card class="img-card mb-4">
-                <img :src="headPhoto" /> 
+                <img :src="headPhoto" />
               </b-card>
               <div class="view-actions mb-10">
                 <div
@@ -23,7 +23,7 @@
             <b-col cols="12" md="6" class="pl-lg-10">
               <b-row class="mb-1">
                 <b-col>
-                  <a class="text-muted">{{basic.brand_name}}</a>
+                  <a class="text-muted">{{ basic.brand_name }}</a>
                 </b-col>
                 <b-col :auto="true">
                   <custom-rate />
@@ -31,58 +31,61 @@
                 </b-col>
               </b-row>
               <h5 class="mb-2">
-               {{basic.goods_name}}
+                {{ basic.goods_name }}
               </h5>
               <div class="mb-7">
                 <span class="ml-1 font-size-h5 font-weight-bolder text-primary">
-                  <font id="goods_amount">￥{{more_spec?good_price:basic.product_price}}</font>
-                </span> 
+                  <font id="goods_amount"
+                    >￥{{ more_spec ? good_price : basic.product_price }}</font
+                  >
+                </span>
               </div>
               <div class="form-group">
                 <div class="mb-5">
-                  <p class="text-gray-500" v-for="(item,index) in attr_common" :key="index">
-                    <strong class="text-body">{{item.attr_name}}：</strong>
-                    {{item.attr_value}}
-                  </p>  
+                  <p
+                    class="text-gray-500"
+                    v-for="(item, index) in attr_common"
+                    :key="index"
+                  >
+                    <strong class="text-body">{{ item.attr_name }}：</strong>
+                    {{ item.attr_value }}
+                  </p>
                   <p class="text-gray-500">
                     <small>不支持7天无理由</small>
                     <br />
                     <small>收货后30天内真假问题负责到底</small>
                     <small>正品保障 假一赔三</small>
                   </p>
-                  <p class="text-gray-500" v-if="basic.is_guonei==0">
-                    海外代购 预计{{basic.min_date}}至{{basic.max_date}}送达
+                  <p class="text-gray-500" v-if="basic.is_guonei == 0">
+                    海外代购 预计{{ basic.min_date }}至{{ basic.max_date }}送达
                   </p>
                 </div>
               </div>
               <div class="form-group">
-
                 <div v-if="more_spec">
                   <GoodsAttr
-                    v-for="(item,index) in attr_spec"
+                    v-for="(item, index) in attr_spec"
                     :key="index"
                     :itemindex="index"
                     :attrName="item.attr_name"
                     :dataSource="item.attr_values"
                     @change="handleGoodsAttr"
                   />
-                </div> 
+                </div>
 
                 <div class="form-row mb-7">
                   <div class="col-12 col-lg-auto">
-                    <CustomInputNumber :initialValue="1" v-model="num" className="mb-2" />
+                    <InputNumber v-model="num" className="mb-2" />
                   </div>
-                  <div class="col-12 col-lg"> 
-                       <normal-button :block="true" @click="handleAddCart">
-                          加入购物车 
-                        </normal-button> 
+                  <div class="col-12 col-lg">
+                    <NormalButton :block="true" @click="handleAddCart">
+                      加入购物车
+                    </NormalButton>
                   </div>
                   <div class="col-12 col-lg-auto">
-                     <normal-button :dark="false">
-                      添加收藏  
-                      </normal-button>
+                    <NormalButton :dark="false"> 添加收藏 </NormalButton>
                   </div>
-                </div> 
+                </div>
               </div>
             </b-col>
           </b-row>
@@ -435,16 +438,15 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { addCart  } from '@/server/cart';
+import { mapState } from "vuex"; 
 export default {
   data() {
     return {
       tag: "热度160",
-      headPhoto:"",
+      headPhoto: "",
       viewList: [],
-      basic:{},
-      product_info:[],
+      basic: {},
+      product_info: [],
       tabList: [
         { label: "商品详情", value: "detail" },
         { label: "商品评价(0)", value: "evaluate" },
@@ -454,96 +456,85 @@ export default {
       tabIndex: 0,
       currentSelectIndex: 0,
       goodId: 0,
-      info:{},
-      num:1,
+      info: {},
+      num: 1,
       //属性
-      goods_attr:[]
+      goods_attr: [],
     };
-  }, 
-  watch:{
-    info:{
-      handler(val){
-         
-      },
-      immediate:true
-    }
   },
-  computed:{
-   
+  watch: {
+    info: {
+      handler(val) {},
+      immediate: true,
+    },
   },
-  async asyncData ({ app, route, req, params, query }) { 
-    const { id:goods_id } = route.params 
- 
-    const { data:info } = await app.$api.good.detail({goods_id}); 
+  computed: {},
+  async asyncData({ app, route, req, params, query }) {
+    const { id: goods_id } = route.params;
 
-    const default_goods_attr=info.attr_spec.map(item=>item.attr_values[0].goods_attr_id)
+    const { data: info } = await app.$api.good.detail({ goods_id });
+
+    const default_goods_attr = info.attr_spec.map(
+      (item) => item.attr_values[0].goods_attr_id
+    );
 
     return {
       info,
-      headPhoto:info.pics[0].middle_url,
-      viewList:info.pics.map(item=>({src:item.middle_url})),
-      basic:info.basic,
-      attr_common:info.attr_common,
-      attr_spec:info.attr_spec,
-      product_info:info.basic.product_info, 
-      goods_attr:default_goods_attr
+      headPhoto: info.pics[0].middle_url,
+      viewList: info.pics.map((item) => ({ src: item.middle_url })),
+      basic: info.basic,
+      attr_common: info.attr_common,
+      attr_spec: info.attr_spec,
+      product_info: info.basic.product_info,
+      goods_attr: default_goods_attr,
       // tdk_data: info.tdk_data,
       // goodsDesc: Array.isArray(info.intro) ? info.intro : resolveLazyLoadImg(info.intro)
-    }
+    };
   },
-  computed: {
-    ...mapState("global", {
-      path: (state) => state.globalPath,
-      query: (state) => state.globalQuery,
-    }),
-    ...mapState("good", {
-      detail: (state) => state.detail,
-    }),
+  computed: { 
     //多规格
-    more_spec(){
-      return this.basic.is_spec==1
+    more_spec() {
+      return this.basic.is_spec == 1;
     },
     //多规格价格
-    good_price(){ 
-      const mapId=this.goods_attr.join(',');
-      const current_product=this.product_info.find(item=>item.goods_attr===mapId)||{}  
+    good_price() {
+      const mapId = this.goods_attr.join(",");
+      const current_product =
+        this.product_info.find((item) => item.goods_attr === mapId) || {};
       return current_product.market_price;
     },
-    pid(){
-      const mapId=this.goods_attr.join(',');
-      const current_product=this.product_info.find(item=>item.goods_attr===mapId)||{}  
+    pid() {
+      const mapId = this.goods_attr.join(",");
+      const current_product =
+        this.product_info.find((item) => item.goods_attr === mapId) || {};
       return current_product.pid;
-    }
-  }, 
+    },
+  },
   methods: {
-    handleGoodsAttr(item,index){ 
-      this.goods_attr[index]=item.goods_attr_id
-      this.goods_attr=[...this.goods_attr]
+    handleGoodsAttr(item, index) {
+      this.goods_attr[index] = item.goods_attr_id;
+      this.goods_attr = [...this.goods_attr];
     },
     switchPhoto(item, i) {
       this.headPhoto = item.src;
       this.currentSelectIndex = i;
-    }, 
-    async handleAddCart(){ 
-      if(!this.$nuxt.$cookies.get('TOKEN')){
-        this.$router.push({path:'/login'})
-        return this.$bvToast.toast('请先登陆', {
-          autoHideDelay: 1000,
-          title: "错误提示",
-        });
-      }else{
-        const res=await addCart({
+    },
+    async handleAddCart() {
+      if (!this.$nuxt.$cookies.get("TOKEN")) {
+        this.$router.push({ path: "/login" });
+        return this.$toast.error("请先登录～");
+      } else {
+        const res = await this.$api.cart.addCart({
           gid: this.basic.goods_id,
           num: this.num,
-          pid: this.more_spec?this.pid:this.basic.pid  
-        }); 
-        if (res.errcode === 0) {  
-          if(this.$router.currentRoute.path==='/cart') return 
-          this.$router.push({path:'/cart'})  
+          pid: this.more_spec ? this.pid : this.basic.pid,
+        });
+        if (res.errcode === 0) {
+          if (this.$router.currentRoute.path === "/cart") return;
+          this.$router.push({ path: "/cart" });
         }
       }
-      
-    }
+    },
   },
 };
 </script>

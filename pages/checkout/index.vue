@@ -31,7 +31,7 @@
             <b-col cols="12" md="5" lg="4" offset-lg="1">
                 <GoodData :data="goodInfo" />
 
-                <normal-button :dark="true" @click="handleConfirm">确认并下单</normal-button>
+                <NormalButton :dark="true" @click="handleConfirm">确认并下单</NormalButton>
             </b-col>
         </b-row>
     </b-container>

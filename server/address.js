@@ -6,7 +6,7 @@ export function getAllAddressList(){
 }
 
 //获取当前用户地址
-export function getAddressList(params){
+export function list(params){
     return request.post('/api/jiesuan/address_list',params);
 }
 //删除地址
@@ -20,6 +20,6 @@ export function editAddress(params){
 }
 
 //增加地址
-export function addAddress(params){
+export function add(params){
     return request.post('/api/jiesuan/address_add',params);
 }

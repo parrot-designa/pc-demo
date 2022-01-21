@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import SlidingValidation from './SlidingValidation/src/SlidingValidation.vue';
+import SlidingValidation from './SlidingValidation';
 export default {
   components: { SlidingValidation },
     methods:{

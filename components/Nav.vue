@@ -58,11 +58,8 @@ export default {
   watch: {  
   },
   methods: {
-    getUseName:function(){ 
-      if(process.env.VUE_ENV=='client'){ 
-        let storageInfo=JSON.parse(localStorage.getItem('info')||'{}');
-        return this.useInfo.user_name||this.useInfo.phone||this.$t("userLogin.navbar.loginText")||storageInfo.user_name||storageInfo.phone
-      } 
+    getUseName:function(){  
+        return this.useInfo.user_name  
     },
     childLength:function(children){
       return (children||[]).length;

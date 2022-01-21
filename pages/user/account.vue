@@ -47,7 +47,7 @@
     </b-col>
     <b-col cols="12" class="mt-4">
       <hr class="mt-2 mb-8" />
-      <normal-button>确认修改资料</normal-button>
+      <NormalButton>确认修改资料</NormalButton>
     </b-col>
     <hr class="mt-8 mb-8" />
     <b-row>
@@ -73,7 +73,7 @@
         </div>
       </b-col>
       <b-col cols="12" class="mt-4">
-          <normal-button>确认修改密码</normal-button>
+          <NormalButton>确认修改密码</NormalButton>
       </b-col>
     </b-row>
   </b-row>

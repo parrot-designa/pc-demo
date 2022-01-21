@@ -7,6 +7,7 @@
 
 <script>
 export default {
+  name: "TabPane",
   data() {
     return {
       delayActive: false,
@@ -20,7 +21,7 @@ export default {
   },
   watch: {
     active: {
-      handler: function (newVal) { 
+      handler: function (newVal) {
         if (newVal) {
           setTimeout(() => {
             this.delayActive = true;
@@ -29,7 +30,7 @@ export default {
           this.delayActive = false;
         }
       },
-      immediate:true
+      immediate: true,
     },
   },
 };

@@ -63,8 +63,8 @@
       </div>
     </b-col>
     <b-col cols="12" lg="12">
-      <normal-button>确认修改</normal-button>
-      <normal-button :dark="false">修改</normal-button>
+      <NormalButton>确认修改</NormalButton>
+      <NormalButton :dark="false">修改</NormalButton>
     </b-col>
   </b-row>
 </template>

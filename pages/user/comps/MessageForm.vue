@@ -12,7 +12,7 @@
             <input class="form-control-file" type="file" />
         </div>
          <div class="form-group">
-            <normal-button>提交留言</normal-button>
+            <NormalButton>提交留言</NormalButton>
         </div>
     </div>
 </template>

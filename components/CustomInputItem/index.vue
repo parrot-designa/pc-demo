@@ -5,7 +5,7 @@
                 <custom-input2 />
             </div>
             <div class="col-auto">
-                <normal-button>添加优惠券</normal-button>
+                <NormalButton>添加优惠券</NormalButton>
             </div>
         </div>
     </div>

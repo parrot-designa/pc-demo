@@ -6,7 +6,9 @@
 
 
 <script>
-export default {};
+export default {
+  name:'TabContent'
+};
 </script>
 
 <style lang="scss"> 

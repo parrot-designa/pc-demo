@@ -5,7 +5,7 @@
         <b-col cols="12" md="6">
           <b-card class="card-lg mb-10 mb-md-0">
             <h6 class="mb-7">{{ $t("userLogin.loginText") }}</h6>
-            <div  >
+            <div>
               <b-row>
                 <b-col cols="12">
                   <b-form-group label="">
@@ -47,9 +47,8 @@
                 <b-col cols="12"></b-col>
               </b-row>
 
-              <normal-button  :dark="true" size="sm"
-              @click="onSubmitLogin"
-                >登陆</normal-button
+              <NormalButton :dark="true" size="sm" @click="onSubmitLogin"
+                >登陆</NormalButton
               >
             </div>
           </b-card>
@@ -152,7 +151,7 @@
 import CustomButton from "~/components/CustomButton.vue";
 import axios from "axios";
 import CustomSlidingValidation from "~/components/CustomSlidingValidation.vue";
-import { phoneReg } from "@/utils"; 
+import { phoneReg } from "@/utils";
 let axiosPrefixCls = "https://baba.ltd/";
 
 export default {
@@ -181,15 +180,14 @@ export default {
     },
   },
   methods: {
-    async onSubmitLogin(evt) {  
-      const data = await this.$api.user.userLogin(this.loginForm); 
+    async onSubmitLogin(evt) {
+      const data = await this.$api.user.userLogin(this.loginForm);
       if (data?.token) {
-        this.$toast.success('登陆成功~~')
-        this.$router.push({path:'/login/success'})
-        this.$store.commit('user/SET_TOKEN',data.token);
-        this.$store.dispatch('user/getInfo'); 
-      }  
-        
+        this.$toast.success("登陆成功~~");
+        this.$router.push({ path: "/login/success" });
+        this.$store.commit("user/SET_TOKEN", data.token);
+        this.$store.dispatch("user/getInfo");
+      }
     },
     onResetLogin() {},
     async onSubmitRegister(evt) {

@@ -42,7 +42,7 @@
           </tr>
           <tr>
             <td>
-              <normal-button>提交申请</normal-button>
+              <NormalButton>提交申请</NormalButton>
             </td>
           </tr>
         </tbody>
@@ -60,7 +60,7 @@
             </td>
           </tr>
         </tbody>
-          <normal-button>提交申请</normal-button>
+          <NormalButton>提交申请</NormalButton>
       </table>
      </template>
      <template slot="third">

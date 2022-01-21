@@ -6,6 +6,7 @@
 
 <script>
 export default {
+    name:'NormalButton',
     props:{
         dark:{
             type:Boolean,

@@ -1,57 +1,58 @@
 <template>
   <div class="form-control form-control-sm number-goods" :class="className">
     <input type="number" class="number-goods i" v-model="val" :min="min" />
-    <a class="number-goods r" @click="()=>val++">+</a>
+    <a class="number-goods r" @click="handleAdd">+</a>
     <a class="number-goods l" @click="handleReduce">-</a>
   </div>
 </template>
 
 <script>
 export default {
+  name: "InputNumber",
   props: {
-    className:{
-      type:String,
-      default:''
+    className: {
+      type: String,
+      default: "",
     },
-    min:{
-      type:Number,
-      default:1
-    }, 
-    value:{
-      type:Number 
-    }
+    min: {
+      type: Number,
+      default: 1,
+    },
+    value: {
+      type: Number,
+    },
   },
-  data(){
+  data() {
     return {
-      val:1,
-      time:0
-    }
+      val: 1,
+      time: 0,
+    };
   },
-  watch:{
-    val:{
-      handler:function(newVal,oldVal){ 
-        console.log("===val===>",newVal)
-        this.$emit('input',newVal,oldVal);
-      }
-    }, 
-    value:{
-      handler:function(newval){  
-        if(this.time===0){
-          this.val= newval;
+  watch: {
+    val: {
+      handler: function (newVal, oldVal) {
+        this.$emit("input", newVal, oldVal);
+      },
+    },
+    value: {
+      handler: function (newval) {
+        if (this.time === 0) {
+          this.val = newval;
           this.time++;
         }
       },
-      immediate:true
-    } 
-  },
-  methods:{
-    handleInput:function(val){ 
+      immediate: true,
     },
-    handleReduce:function(){
-      if(this.val<=1) return ;
+  },
+  methods: {
+    handleAdd: function () {
+      this.val++;
+    },
+    handleReduce: function () {
+      if (this.val <= 1) return;
       this.val--;
-    }
-  }
+    },
+  },
 };
 </script>
 

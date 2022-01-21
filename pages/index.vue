@@ -41,14 +41,7 @@
           </b-col>
         </b-row>
 
-        <TabContent>
-          <!-- <template v-for="(item, index) in tabList">
-            <transition name="el-fade-in-linear" :key="index">
-              <TabPane v-show="tabList[tabIndex].value === item.value">
-                {{ item.label }}
-              </TabPane>
-            </transition>
-          </template> -->
+        <TabContent> 
           <TabPane
             v-for="(item, index) in tabList"
             :active="activeTabValue === item.value"
@@ -57,7 +50,7 @@
             <template>
               <b-row>
                 <b-col
-                  :col="6"
+                  cols="6"
                   :lg="4"
                   v-for="(item, index) in goodList[activeTabValue]"
                   :key="index"
@@ -73,7 +66,7 @@
                 </b-col>
               </b-row>
               <b-row>
-                <b-col :col="12">
+                <b-col cols="12">
                   <div class="mt-7 text-center">
                     <CustomLineButton
                       title="查看更多..."
@@ -125,11 +118,9 @@
 </template>
 
 <script>
-import HomePic from "./comps/HomePic.vue";
-import { getBanners } from "@/server/home";
-import { mapState } from "vuex";
-import { TabContent, TabPane } from "@/components/CustomTabContent";
+import HomePic from "./comps/HomePic.vue"; 
 import phonealbum from "@parrotjs/vue-photoalbum";
+import S from "@/spx";
 import "@parrotjs/vue-photoalbum/dist/vue-photoalbum.css";
 export default {
   data() {
@@ -142,20 +133,16 @@ export default {
       ],
       tabIndex: 0,
       currentImage: {},
-      info:{}
+      info:{},
+      goodList:[],
+      photo:{}
     };
   },
   components: {
-    HomePic,
-    TabContent,
-    TabPane,
+    HomePic, 
     phonealbum,
   },
-  computed: {
-    ...mapState("home", {
-      goodList: (state) => state.goodList,
-      photo: (state) => state.photo,
-    }), 
+  computed: { 
     activeTabValue: function () {
       return this.tabList[this.tabIndex].value;
     },
@@ -174,12 +161,21 @@ export default {
       this.$router.push({
         path:`/good/${item.id}`
       })
+    },
+    //获取所有城市
+    getAllCity:async function(){
+      let addressList = S.getAddressList();  
+      if(!addressList){
+        const res=await this.$api.address.getAllAddressList(); 
+        S.setAddressList(res)
+      }
     }
   },
-  mounted: async function () {
-    let banners = await getBanners();
-    this.$store.dispatch("home/getGoods");
-    this.$store.dispatch("home/getPhoto");
+  mounted: async function () { 
+    this.goodList=await this.$api.home.getIndexGoods();   
+    this.photo=await this.$api.home.getIndexPhones();  
+    
+    this.getAllCity();
   },
 };
 </script>

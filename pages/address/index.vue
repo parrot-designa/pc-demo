@@ -9,7 +9,12 @@
           v-for="(item, index) in addressList"
           :key="index"
         >
-          <Form :info="item" @delete="handleDelete" @edit="handleEdit" @changeDefault="changeDefault" />
+          <Form
+            :info="item"
+            @delete="handleDelete"
+            @edit="handleEdit"
+            @changeDefault="changeDefault"
+          />
         </b-col>
         <b-col cols="12" md="7">
           <Form
@@ -27,27 +32,23 @@
 </template>
 
 <script>
-import AddressSelect from "~/components/AddressSelect.vue";
 import Form from "./comps/form.vue";
-import { mapState } from "vuex";
 export default {
-  components: { AddressSelect, Form },
+  components: { Form },
   data() {
     return {
       current: {},
+      addressList: [],
     };
   },
   mounted: function () {
-    this.getMyAddress();
+    this.getAddressList();
   },
-  computed: {
-    ...mapState("address", {
-      addressList: (state) => state.list,
-    }),
-  },
+  computed: {},
   methods: {
-    getMyAddress: function () {
-      this.$store.dispatch("address/getMyList");
+    getAddressList: async function () {
+      const res = await this.$api.address.list();
+      this.addressList = res.data;
     },
     handleDelete: function (item) {
       let res = confirm("您确定要删除该收货人信息吗？");
@@ -99,8 +100,8 @@ export default {
           }
         });
     },
-    changeDefault:function(form){
-       if (!form.consignee) {
+    changeDefault: function (form) {
+      if (!form.consignee) {
         this.$message.warning("收货人姓名必填");
         return;
       }
@@ -130,53 +131,48 @@ export default {
           mobile: form.mobile,
           email: form.email,
           address_id: form.id,
-          is_default:1
+          is_default: 1,
         })
         .then((res) => {
           if (res) {
             this.$message.success("添加成功！");
             this.getMyAddress();
-            this.$router.go(-1)
+            this.$router.go(-1);
           }
         });
     },
-    handleAdd: function (form) {
-      if (!form.consignee) {
-        this.$message.warning("收货人姓名必填");
-        return;
+    handleAdd: async function (form) {
+      if (!form.consignee) { 
+        return this.$toast.show("收货人姓名必填");
       }
       if (!form.mobile) {
-        this.$message.warning("手机号必填");
-        return;
+        return this.$toast.show("手机号必填"); 
       }
       if (!form.email) {
-        this.$message.warning("电子邮箱必填");
-        return;
+        return this.$toast.show("电子邮箱必填"); 
       }
       if (!form.addressCode[2]) {
-        this.$message.warning("电子邮箱必填");
-        return;
+        return this.$toast.show("电子邮箱必填"); 
       }
       if (!form.address) {
-        this.$message.warning("详细地址必填");
-        return;
+        return this.$toast.show("详细地址必填"); 
       }
-      this.$store
-        .dispatch("address/add", {
-          province: form.addressCode[0],
-          city: form.addressCode[1],
-          district: form.addressCode[2],
-          address: form.address,
-          consignee: form.consignee,
-          mobile: form.mobile,
-          email: form.email,
-        })
-        .then((res) => {
-          if (res) {
-            this.$message.success("添加成功！");
-            this.getMyAddress();
-          }
-        });
+      const res=await this.$api.address.add({
+        province: form.addressCode[0],
+        city: form.addressCode[1],
+        district: form.addressCode[2],
+        address: form.address,
+        consignee: form.consignee,
+        mobile: form.mobile,
+        email: form.email,
+      });
+      // if(res.err)
+      // this.$store.dispatch("address/add", {}).then((res) => {
+      //   if (res) {
+      //     this.$message.success("添加成功！");
+      //     this.getAddressList();
+      //   }
+      // });
     },
   },
 };

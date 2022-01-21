@@ -11,6 +11,10 @@ export default ({app}) => {
             //用户中心面包屑
             app.store.commit('global/SET_GLOBAL_BREAD',{items:['首页','用户中心']})
         } 
+        if(to.path==='/cart'){ 
+            //用户中心面包屑
+            app.store.commit('global/SET_GLOBAL_BREAD',{items:['首页','购物流程']})
+        } 
         if(to.path==='/pic'){
             app.store.commit('global/SET_GLOBAL_BREAD',{items:['首页','照片墙']})
         }  
