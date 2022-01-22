@@ -51,16 +51,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.custom-control {
-  min-width: 3rem;
-  padding: 0.5rem;
-  text-align: center;
-  border: 1px solid #ddd;
-  display: inline-block;
-}
-.custom-control-inline { 
-}
+<style lang="scss" scoped> 
 .selected {
   border: 1px solid #000;
 }

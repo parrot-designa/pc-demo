@@ -13,7 +13,8 @@
                         <p class="mb-4 font-size-sm font-weight-bold">
                             <a class="text-body">{{item.product_name}}</a>
                             <br />
-                            <span class="font-size-xs text-gray-350 text-decoration-line-through">{{item.product_price}}</span>
+                            <span class="text-primary">{{item.price}}</span>
+                            x{{item.goods_num}}
                         </p>
                     </div>
                 </b-row>

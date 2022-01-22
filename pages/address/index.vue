@@ -6,7 +6,7 @@
         <b-col
           cols="12"
           md="7"
-          v-for="(item, index) in addressList"
+          v-for="(item, index) in addressList.slice(0, 5)"
           :key="index"
         >
           <Form
@@ -50,114 +50,34 @@ export default {
       const res = await this.$api.address.list();
       this.addressList = res.data;
     },
-    handleDelete: function (item) {
-      let res = confirm("您确定要删除该收货人信息吗？");
-      if (res) {
-        this.$store.dispatch("address/delete", item.id).then((res) => {
-          if (res) {
-            this.$message.success("删除成功！");
-            this.getMyAddress();
-          }
-        });
+    handleDelete: async function (item) {
+      let confirm_res = confirm("您确定要删除该收货人信息吗？");
+      if (confirm_res) {
+        const res = await this.$api.address.deleteItem({ address_id: item.id });
+        if (res.errcode === 0) {
+          this.$toast.success("删除成功！");
+          this.getAddressList();
+        }
       }
     },
-    handleEdit: function (form) {
+    handleEdit: async function (form) { 
       if (!form.consignee) {
-        this.$message.warning("收货人姓名必填");
-        return;
+        return this.$toast.error("收货人姓名必填"); 
       }
       if (!form.mobile) {
-        this.$message.warning("手机号必填");
-        return;
+        return this.$toast.error("手机号必填"); 
       }
       if (!form.email) {
-        this.$message.warning("电子邮箱必填");
-        return;
+        return this.$toast.error("电子邮箱必填"); 
       }
       if (!form.addressCode[2]) {
-        this.$message.warning("电子邮箱必填");
+        this.$toast.error("电子邮箱必填");
         return;
       }
       if (!form.address) {
-        this.$message.warning("详细地址必填");
-        return;
+        return this.$toast.error("详细地址必填");
       }
-      this.$store
-        .dispatch("address/edit", {
-          province: form.addressCode[0],
-          city: form.addressCode[1],
-          district: form.addressCode[2],
-          address: form.address,
-          consignee: form.consignee,
-          mobile: form.mobile,
-          email: form.email,
-          address_id: form.id,
-        })
-        .then((res) => {
-          if (res) {
-            this.$message.success("修改成功！");
-            this.getMyAddress();
-          }
-        });
-    },
-    changeDefault: function (form) {
-      if (!form.consignee) {
-        this.$message.warning("收货人姓名必填");
-        return;
-      }
-      if (!form.mobile) {
-        this.$message.warning("手机号必填");
-        return;
-      }
-      if (!form.email) {
-        this.$message.warning("电子邮箱必填");
-        return;
-      }
-      if (!form.addressCode[2]) {
-        this.$message.warning("电子邮箱必填");
-        return;
-      }
-      if (!form.address) {
-        this.$message.warning("详细地址必填");
-        return;
-      }
-      this.$store
-        .dispatch("address/edit", {
-          province: form.addressCode[0],
-          city: form.addressCode[1],
-          district: form.addressCode[2],
-          address: form.address,
-          consignee: form.consignee,
-          mobile: form.mobile,
-          email: form.email,
-          address_id: form.id,
-          is_default: 1,
-        })
-        .then((res) => {
-          if (res) {
-            this.$message.success("添加成功！");
-            this.getMyAddress();
-            this.$router.go(-1);
-          }
-        });
-    },
-    handleAdd: async function (form) {
-      if (!form.consignee) { 
-        return this.$toast.show("收货人姓名必填");
-      }
-      if (!form.mobile) {
-        return this.$toast.show("手机号必填"); 
-      }
-      if (!form.email) {
-        return this.$toast.show("电子邮箱必填"); 
-      }
-      if (!form.addressCode[2]) {
-        return this.$toast.show("电子邮箱必填"); 
-      }
-      if (!form.address) {
-        return this.$toast.show("详细地址必填"); 
-      }
-      const res=await this.$api.address.add({
+      const res = this.$api.address.edit({
         province: form.addressCode[0],
         city: form.addressCode[1],
         district: form.addressCode[2],
@@ -165,14 +85,72 @@ export default {
         consignee: form.consignee,
         mobile: form.mobile,
         email: form.email,
+        address_id: form.id,
       });
-      // if(res.err)
-      // this.$store.dispatch("address/add", {}).then((res) => {
-      //   if (res) {
-      //     this.$message.success("添加成功！");
-      //     this.getAddressList();
-      //   }
-      // });
+      if (res.errcode === 0) {
+        this.$toast.success("修改成功！");
+        this.getAddressList();
+      }
+    },
+    changeDefault: async function (form) { 
+      if (!form.consignee) {
+        return this.$toast.error("收货人姓名必填"); 
+      }
+      if (!form.mobile) {
+        return this.$toast.error("手机号必填"); 
+      }
+      if (!form.email) {
+        return this.$toast.error("电子邮箱必填"); 
+      }
+      if (!form.addressCode[2]) {
+        return this.$toast.error("电子邮箱必填"); 
+      }
+      if (!form.address) {
+        return this.$toast.error("详细地址必填"); 
+      }
+      const res = await this.$api.address.edit({
+        province: form.addressCode[0],
+        city: form.addressCode[1],
+        district: form.addressCode[2],
+        address: form.address,
+        consignee: form.consignee,
+        mobile: form.mobile,
+        email: form.email,
+        address_id: form.id,
+        zipcode:'110',
+        is_default: 1,
+      });
+      if (res.errcode === 0) {
+        this.$toast.success("修改默认地址成功！");
+        this.$router.go(-1);
+      }
+    },
+    handleAdd: async function (form) {
+      if (!form.consignee) {
+        return this.$toast.show("收货人姓名必填");
+      }
+      if (!form.mobile) {
+        return this.$toast.show("手机号必填");
+      }
+      if (!form.email) {
+        return this.$toast.show("电子邮箱必填");
+      }
+      if (!form.addressCode[2]) {
+        return this.$toast.show("电子邮箱必填");
+      }
+      if (!form.address) {
+        return this.$toast.show("详细地址必填");
+      }
+      const res = await this.$api.address.add({
+        province: form.addressCode[0],
+        city: form.addressCode[1],
+        district: form.addressCode[2],
+        address: form.address,
+        consignee: form.consignee,
+        mobile: form.mobile,
+        email: form.email,
+        zipcode:'110',
+      }); 
     },
   },
 };

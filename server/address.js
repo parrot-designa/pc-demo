@@ -10,16 +10,16 @@ export function list(params){
     return request.post('/api/jiesuan/address_list',params);
 }
 //删除地址
-export function deleteAddress(params){
-    return request.post('/api/jiesuan/address_remove',params);
+export function deleteItem(params){
+    return request.post('/api/orderconfirm/address_remove',params);
 }
  
 //修改地址
-export function editAddress(params){
-    return request.post('/api/jiesuan/address_edit',params);
+export function edit(params){
+    return request.post('/api/orderconfirm/address_edit',params);
 }
 
 //增加地址
 export function add(params){
-    return request.post('/api/jiesuan/address_add',params);
+    return request.post('/api/orderconfirm/address_add',params);
 }

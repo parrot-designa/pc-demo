@@ -8,7 +8,7 @@
                         <CustomRadio 
                             :label="item.label"
                             :text="item.text"
-                            :checked="item[keyField]===value"
+                            :checked="item[keyField]===val"
                             @click="handleClick(item)"
                         />
                     </td>
@@ -18,8 +18,7 @@
     </div>
 </template>
 
-<script>
-import { savePayType } from '@/server/order'
+<script> 
 export default {
     props:{
         title:{
@@ -30,17 +29,32 @@ export default {
         }, 
         keyField:{
             type:String
+        },
+        value:{
+            type:String
         }
     },
     data(){
         return {
-            value:''
+            val:'',
+            time:0
+        }
+    },
+    watch:{
+        value:{
+            handler:function(newval) {
+                if(this.time===0){
+                    this.val=newval; 
+                    this.time++;
+                }
+            },
+            immediate:true
         }
     },
     methods:{
-        handleClick:function(item){
-            this.value=item[this.keyField];
-            this.$emit('input',this.value)
+        handleClick:function(item){ 
+            this.val=item[this.keyField]; 
+            this.$emit('input',this.val)
         }
     }
 }

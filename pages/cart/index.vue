@@ -92,13 +92,12 @@ export default {
     return {
       list: [],
       total: {
-        totalPrice: 0,
+        total_price: 0,
       },
     };
   },
   mounted: function () {
-    this.getCart();
-    this.getTotal();
+    this.getCart(); 
   },
   computed: {},
   methods: {
@@ -108,6 +107,7 @@ export default {
         ...item,
         ...item.product_info,
       }));
+      this.getTotal();
     },
     handleDelete: async function (params) {
       const res = await this.$api.cart.deleteItem(params);
@@ -116,17 +116,24 @@ export default {
       }
     },
     handleClean: async function () {
-      await this.$api.cart.clean();
+      const res=await this.$api.cart.clean();
+      if(res.errcode===0){
+         this.getCart();
+      }
     },
     getTotal: async function () {
-      await this.$api.cart.total();
+      const res=await this.$api.cart.total();
+      this.total=res.data;
     },
     handleEdit: async function (params) {
-      await this.$api.cart.edit(params);
+      const res=await this.$api.cart.edit(params);
+      if(res.errcode===0){
+        this.getTotal()
+      }
     },
     handleCheckout: async function () {
       if(this.list.length==0){
-        return this.$toast.show('当前购物车无商品～')
+        return this.$toast.error('当前购物车无商品～')
       }
       const res = await this.$api.cart.shopCartBuy();
       if (res.errcode === 0) {

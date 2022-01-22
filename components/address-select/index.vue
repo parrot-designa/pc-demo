@@ -48,9 +48,8 @@ export default {
     };
   },
   methods: {
-    level1Change: function (value) {
-       
-      this.level1Value = this.allData.find((item) => item.id == value);
+    level1Change: function (value) { 
+      this.level1Value = this.allData.find((item) => item.id == value); 
       this.level2Data = this.level1Value.sub.map((item) => ({
         ...item,
         name: item.name,
@@ -76,7 +75,7 @@ export default {
       ]);
     },
     getAllCity: async function () {
-      let addressList = S.getAddressList(); 
+      let addressList = S.getAddressList();  
       this.allData = addressList;
       this.level1Data = addressList.map((item) => ({
         ...item,
@@ -93,6 +92,7 @@ export default {
         if (newVal.length === 3 && hasChange) {
           const res = await this.getAllCity();
           if (res) { 
+            console.log("====state====",newVal)
             this.level1Change(newVal[0]);
             this.level2Change(newVal[1]);
             this.level3Change(newVal[2]);

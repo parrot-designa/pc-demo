@@ -1,16 +1,21 @@
 
 <template>
-    <div class="custom-control custom-radio" :class="[{'checked':checked}]" @click="handleSelect">
-        <input class="custom-control-input" />
-        <label class="custom-control-label">
+    <div class="custom-control custom-radio"  @click="handleSelect">
+        <input 
+            class="custom-control-input" 
+            type="radio" 
+            :checked="checked" 
+        />
+        <label class="custom-control-label" :class="[{'checked':checked}]">
             <b>{{label}}</b>
-            <span class="ml-5">{{text}}</span>
+            <span class="ml-5 font-size-xs">{{text}}</span>
         </label>
     </div>
 </template>
 
 <script>
 export default {
+    name:'CustomRadio',
     props:{
         label:{
             type:String,
